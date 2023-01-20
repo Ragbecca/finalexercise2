@@ -1,0 +1,225 @@
+.menu {
+    background-color: white;
+    border-radius: 25px;
+    height: fit-content;
+    width: 90%;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    padding-bottom: 1vw;
+}
+
+.menu-logo-logo {
+    width: 64px;
+    height: 64px;
+}
+
+.menu-selector-item.inactive {
+    opacity: 0.5;
+}
+
+.menu-selector-item.active {
+    opacity: 1;
+}
+
+.menu-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: $gray 1px solid;
+}
+
+.user-menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-menu>div {
+    margin-right: 8px;
+}
+
+.user-menu-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: gray 1px solid;
+    margin-right: 8px;
+}
+
+.user-menu-name {
+    display: flex;
+    font-weight: $poppins-small;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu-selector {
+    display: flex;
+    justify-content: space-between;
+    width: 97%;
+}
+
+#login-selector {
+    padding-left: 5px;
+}
+
+.selector-image {
+    width: 16px;
+    height: 16px;
+}
+
+.menu-selector-item {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-small;
+
+    &:hover {
+        background-color: rgba(51, 0, 51, 0.75);
+    }
+}
+
+@media (min-width: $mobile) {
+    .selector-image {
+        width: 24px;
+        height: 24px;
+    }
+
+    .menu-selector-item {
+        font-size: x-small;
+        padding: 0 8px;
+    }
+}
+
+@media (min-width: $tablet) {
+    .menu-selector-item {
+        font-size: small;
+        padding: 0 8px;
+    }
+}
+
+@media (min-width: $desktop) {
+    .menu {
+        width: fit-content;
+        margin-left: 0;
+        margin-right: 0;
+        top: 0;
+        position: sticky;
+    }
+
+    .menu-1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: max-content;
+        margin-left: 1vw;
+        margin-right: 1vw;
+        border-bottom: none;
+        margin-bottom: 3vw;
+    }
+
+    .menu-logo-logo {
+        width: 128px;
+        height: 128px;
+    }
+
+    #menu-selector {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-menu-image {
+        width: 64px;
+        height: 64px;
+        margin-right: 0;
+    }
+
+    .user-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .user-menu>div {
+        margin-right: 0;
+    }
+
+    .selector-image {
+        width: 48px;
+        height: 48px;
+    }
+
+    .menu-selector-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        transition: 0.3s;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+        padding: 0;
+        margin-bottom: 1rem;
+        font-size: medium;
+    }
+}
+
+@media (min-width: $large-screen) {
+    .menu {
+        background-color: white;
+        border-radius: 25px;
+        top: -10vh;
+        position: relative;
+        height: fit-content;
+        width: max-content;
+    }
+
+    .menu-1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+
+    .menu-logo-logo {
+        width: 128px;
+        height: 128px;
+    }
+
+    .menu-logo {
+        font-size: 8rem;
+        display: flex;
+        justify-content: center;
+        border-bottom: gray 1.5px solid;
+    }
+
+    .user-menu {
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .user-menu-image {
+        width: 150px;
+        height: 150px;
+        border: gray 1px solid;
+        border-radius: 100%;
+    }
+
+    .menu-selector-item {
+        font-size: xx-large;
+        padding: 0.5rem;
+        margin-bottom: 0;
+    }
+}

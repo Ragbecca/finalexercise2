@@ -1,2 +1,103 @@
-@use './scss/font.scss' as *;
+@use './scss/font' as *;
+@use './scss/colors' as *;
+@use './scss/screensizes' as *;
 @import './scss/Backgrounds.scss';
+@import './scss/Menu.scss';
+@import './scss/Dashboard.scss';
+@import './scss/Task.scss';
+
+.red-color {
+    color: $red;
+}
+
+.green-color {
+    color: $green;
+}
+
+.blue-color {
+    color: $blue;
+}
+
+.poppins-bold {
+    font-weight: $poppins-bold;
+}
+
+.poppins-medium {
+    font-weight: $poppins-normal;
+}
+
+.poppins-small {
+    font-weight: $poppins-small;
+}
+
+.rem-3 {
+    font-size: 3rem;
+}
+
+#main-page {
+    display: block;
+    width: 100%;
+}
+
+.clickable-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: $purple;
+}
+
+#header {
+    float: right;
+    font-size: small;
+    margin-right: 10vw;
+    margin-top: 1rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 246, 0.5);
+    border-radius: 25px;
+}
+
+#main-container {
+    position: relative;
+    padding-top: 10vh;
+}
+
+@media (min-width: $desktop) {
+    #header {
+        font-size: larger;
+        margin-right: 1rem;
+    }
+
+    #main-container {
+        display: flex;
+        position: static;
+        padding-left: 1.5vw;
+        padding-right: 1.5vw;
+        width: 97vw;
+        padding-top: 0;
+    }
+
+    #main-page {
+        display: flex;
+    }
+
+}
+
+@media (min-width: $large-screen) {
+    #header {
+        font-size: x-large;
+    }
+
+    .padding-main-top {
+        padding-top: 10rem;
+    }
+
+    #main-container {
+        display: flex;
+        position: static;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        width: 90vw;
+        padding-top: 0;
+    }
+}

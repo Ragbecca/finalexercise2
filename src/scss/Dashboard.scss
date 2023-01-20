@@ -1,0 +1,217 @@
+#dashboard {
+    padding-top: 10%;
+    width: 90vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+#dashboard-name {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    margin-bottom: 10%;
+}
+
+#dashboard-name-h1 {
+    margin: 0;
+}
+
+#dashboard-task-shower {
+    background-color: white;
+    border-radius: 25px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 10%;
+}
+
+#task-shower-header {
+    padding-top: 1vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#task-shower-header-name {
+    margin: 0;
+}
+
+#dashboard-website-shower {
+    background-color: white;
+    border-radius: 25px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 10%;
+}
+
+#dashboard-website-shower-flex {
+    display: flex;
+}
+
+#dashboard-website-shower-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#dashboard-website-shower-title {
+    margin: 0;
+    font-size: 1rem;
+}
+
+#dashboard-website-shower-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.dashboard-website {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.dashboard-website-name {
+    padding-left: 1rem;
+}
+
+#dashboard-quote {
+    background-color: white;
+    border-radius: 25px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+#dashboard-quote-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#dashboard-quote-sentence {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.75rem;
+}
+
+#dashboard-quote-author {
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-left: 1vw;
+}
+
+@media (min-width: $tablet) {
+    #dashboard-website-shower-grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+    }
+}
+
+@media (min-width: $desktop) {
+    #dashboard {
+        width: 100%;
+        background-color: white;
+        border-radius: 25px;
+        margin-left: 2vw;
+        padding-left: 1vw;
+        padding-right: 1vw;
+        padding-top: 0;
+    }
+
+    #dashboard-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #dashboard-website-shower-grid {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+
+    #dashboard-task-shower {
+        margin-bottom: 0;
+    }
+
+    .dashboard-2-big-segments {
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
+
+    #dashboard-name {
+        margin-bottom: 0;
+    }
+
+    #dashboard-quote-sentence {
+        font-size: 1.5rem;
+    }
+
+    #dashboard-quote {
+        margin-bottom: 5rem;
+        background-color: rgba($color: $purple, $alpha: 0.2);
+        padding: 1rem;
+        border-radius: 25px;
+    }
+
+    #dashboard-website-shower {
+        background-color: rgba($color: $purple, $alpha: 0.2);
+        padding: 1rem;
+        border-radius: 25px;
+    }
+
+}
+
+@media (min-width: $large-screen) {
+    #dashboard {
+        width: 100%;
+        background-color: white;
+        border-radius: 25px;
+        padding-left: 1vw;
+        padding-right: 2vw;
+    }
+
+    #dashboard-website-shower-grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+    }
+
+    .dashboard-2-big-segments {
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+    }
+
+    #dashboard-quote-title-1 {
+        font-weight: $poppins-bold;
+        font-size: 2rem;
+    }
+
+    #dashboard-quote-title-2 {
+        font-weight: $poppins-small;
+        font-size: 0.75rem;
+        margin-left: 1rem;
+    }
+
+    #dashboard-task-shower {
+        width: 30vw;
+    }
+
+    #dashboard-quote-sentence {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.75rem;
+    }
+
+    #dashboard-quote-author {
+        font-size: 0.75rem;
+        display: inline-block;
+        margin-left: 1rem;
+    }
+}

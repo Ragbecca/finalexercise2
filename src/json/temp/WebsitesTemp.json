@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "name": "Google",
+        "img": "/google.png",
+        "link": "google.com",
+        "clicks": 101
+    },
+    {
+        "id": 2,
+        "name": "Reddit",
+        "img": "/reddit.png",
+        "link": "reddit.com",
+        "clicks": 111
+    },
+    {
+        "id": 3,
+        "name": "React",
+        "img": "/react.png",
+        "link": "react.com",
+        "clicks": 60
+    },
+    {
+        "id": 4,
+        "name": "Facebook",
+        "img": "/facebook.png",
+        "link": "facebook.com",
+        "clicks": 50
+    },
+    {
+        "id": 5,
+        "name": "Twitter",
+        "img": "/twitter.png",
+        "link": "twitter.com",
+        "clicks": 40
+    },
+    {
+        "id": 6,
+        "name": "Google 2",
+        "img": "/google.png",
+        "link": "google.com",
+        "clicks": 23
+    },
+    {
+        "id": 7,
+        "name": "Reddit 2",
+        "img": "/reddit.png",
+        "link": "reddit.com",
+        "clicks": 13
+    },
+    {
+        "id": 8,
+        "name": "React 2",
+        "img": "/react.png",
+        "link": "react.com",
+        "clicks": 12
+    }
+]

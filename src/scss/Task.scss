@@ -1,0 +1,449 @@
+.task-difficulty-0 {
+    color: $green;
+}
+
+.task-difficulty-1 {
+    color: yellow;
+}
+
+.task-difficulty-2 {
+    color: $red;
+}
+
+.task-difficulty-3 {
+    color: $purple;
+}
+
+.task-shower-task {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid $purple;
+    padding: 0 1vw 0 1vw;
+    border-radius: 10px;
+}
+
+#tasks-active-shower {
+    background-color: white;
+    border-radius: 25px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 10%;
+}
+
+#tasks-active-scrollbar {
+    height: 55vh;
+    width: 100%;
+    overflow-y: scroll;
+    margin-bottom: 2rem;
+
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($color: $purple, $alpha: 0.2);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $purple;
+    }
+}
+
+.task-line-1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.task-three-dots {
+    display: flex;
+    align-items: flex-start;
+    padding-right: 1vw;
+}
+
+.task-line-2 {
+    color: gray;
+    font-weight: $poppins-small;
+}
+
+.task-line-3 {
+    color: $purple;
+    font-weight: $poppins-bold;
+    line-height: 10%;
+}
+
+.task-line-4 {
+    display: flex;
+    align-items: center;
+}
+
+.task-line-4-subline {
+    display: flex;
+    margin-left: auto;
+    order: 3;
+    font-size: small;
+}
+
+.task-line-5 {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 7.5%;
+}
+
+.task-line-5-container {
+    display: block;
+    justify-content: flex-end;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.task-line-5-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    left: -10vw;
+}
+
+.checkmark {
+    position: absolute;
+    top: -1.2vh;
+    left: -10vw;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.task-line-5-container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+.task-line-5-container input:checked~.checkmark {
+    background-color: $purple;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.task-line-5-container input:checked~.checkmark:after {
+    display: block;
+}
+
+.task-line-5-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.task-deadline-moment {
+    font-size: small;
+}
+
+.task-deadline-moment {
+    margin-left: 1vw;
+}
+
+#add-task {
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+
+#plus-icon {
+    font-size: xx-large;
+    color: white;
+    background-color: $purple;
+    padding: 0.5rem 1.25rem;
+    border-radius: 100%;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+#tasks-finished-shower {
+    margin-top: 2rem;
+    background-color: white;
+    border-radius: 25px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+#tasks-finished-scrollbar {
+    height: 40vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($color: $purple, $alpha: 0.2);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $purple;
+    }
+}
+
+#tasks-active-search {
+    width: 100%;
+    overflow-x: scroll;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($color: $purple, $alpha: 0.2);
+        border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $purple;
+    }
+}
+
+.finished-task {
+    margin: 0.5rem;
+    border: 1px solid $purple;
+    padding: 0 1vw 0 1vw;
+    border-radius: 10px;
+}
+
+.finished-task-line-1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.finished-task-line-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.finished-task-line-2 h1 {
+    margin: 0;
+}
+
+.finished-task-checkbox {
+    display: block;
+    justify-content: flex-end;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.finished-task-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    left: -7vw;
+}
+
+.finished-task-checkbox .checkmark {
+    position: absolute;
+    top: -6vh;
+    left: -7vw;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.finished-task-checkbox:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+.finished-task-checkbox input:checked~.checkmark {
+    background-color: $purple;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.finished-task-checkbox input:checked~.checkmark:after {
+    display: block;
+}
+
+.finished-task-checkbox .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.task-category {
+    cursor: pointer;
+    font-size: small;
+    padding-right: 1rem;
+}
+
+.task-category.category-active {
+    opacity: 1;
+}
+
+.task-category.category-inactive {
+    opacity: 0.5;
+    transition: 0.3s;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+#progress-tasks {
+    border-radius: 25px;
+    background-color: white;
+    padding: 1rem;
+}
+
+#progress-tasks-values {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.progress-task-value {
+    margin-right: 1rem;
+    width: 6rem;
+    height: 6rem;
+    padding: 1rem;
+    background-color: rgba($color: $purple, $alpha: 0.2);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-task-value-1 {
+    font-size: x-large;
+}
+
+.progress-task-value-2 {
+    text-align: center;
+}
+
+
+@media (min-width: $tablet) {
+    .task-line-5-container input {
+        left: -5vw;
+    }
+
+    .checkmark {
+        left: -5vw;
+        top: 0;
+    }
+}
+
+@media (min-width: $laptop) {
+    .task-line-5-container input {
+        left: -2vw;
+    }
+
+    .checkmark {
+        left: -2vw;
+        top: 1vw;
+    }
+}
+
+@media (min-width: $desktop) {
+    .task-shower-task {
+        padding: 0 1rem 1rem 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 10px;
+        border: 1px solid black;
+        width: 90%;
+    }
+
+    .task-three-dots {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    #task-shower-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .task-deadline-moment {
+        margin-left: 1rem;
+    }
+
+    .task-line-4-subline {
+        display: flex;
+        margin-left: auto;
+        order: 3;
+    }
+
+    #add-task {
+        justify-content: flex-start;
+        margin-bottom: 2vh;
+    }
+
+    #tasks-active-shower {
+        width: 35vw;
+        margin: 0;
+    }
+
+    #progress-tasks {
+        background-color: rgba($color: $purple, $alpha: 0.2);
+    }
+
+    #tasks-finished-shower {
+        background-color: rgba($color: $purple, $alpha: 0.2);
+    }
+
+    #tasks-active-scrollbar {
+        height: 60vh;
+    }
+}

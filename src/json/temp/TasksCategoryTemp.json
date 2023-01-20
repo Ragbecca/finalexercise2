@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "categoryName": "School"
+    },
+    {
+        "id": 2,
+        "categoryName": "House"
+    },
+    {
+        "id": 3,
+        "categoryName": "Social"
+    },
+    {
+        "id": 4,
+        "categoryName": "Cooking"
+    },
+    {
+        "id": 5,
+        "categoryName": "Advancius"
+    },
+    {
+        "id": 6,
+        "categoryName": "Work"
+    },
+    {
+        "id": 7,
+        "categoryName": "Shopping"
+    },
+    {
+        "id": 8,
+        "categoryName": "Misc"
+    }
+]
