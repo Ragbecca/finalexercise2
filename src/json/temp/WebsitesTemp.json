@@ -4,6 +4,7 @@
         "name": "Google",
         "img": "/google.png",
         "link": "google.com",
+        "description": "Google is my favorite, I absolutely love it. It works perfectly",
         "clicks": 101
     },
     {
@@ -11,6 +12,7 @@
         "name": "Reddit",
         "img": "/reddit.png",
         "link": "reddit.com",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis augue tincidunt, congue augue in, suscipit libero. Duis id fermentum justo. Aliquam semper rhoncus pulvinar. Suspendisse ut euismod ex, ut fringilla massa. Praesent molestie fringilla sapien, ut eleifend augue hendrerit ut. Aenean maximus risus eget sem pharetra, vitae condimentum felis commodo. Sed scelerisque bibendum commodo.",
         "clicks": 111
     },
     {
@@ -18,6 +20,7 @@
         "name": "React",
         "img": "/react.png",
         "link": "react.com",
+        "description": "TEST 3",
         "clicks": 60
     },
     {
@@ -25,6 +28,7 @@
         "name": "Facebook",
         "img": "/facebook.png",
         "link": "facebook.com",
+        "description": "TEST 4",
         "clicks": 50
     },
     {
@@ -32,6 +36,7 @@
         "name": "Twitter",
         "img": "/twitter.png",
         "link": "twitter.com",
+        "description": "TEST 5",
         "clicks": 40
     },
     {
@@ -39,6 +44,7 @@
         "name": "Google 2",
         "img": "/google.png",
         "link": "google.com",
+        "description": "TEST 6",
         "clicks": 23
     },
     {
@@ -46,6 +52,7 @@
         "name": "Reddit 2",
         "img": "/reddit.png",
         "link": "reddit.com",
+        "description": "TEST 7",
         "clicks": 13
     },
     {
@@ -53,6 +60,7 @@
         "name": "React 2",
         "img": "/react.png",
         "link": "react.com",
+        "description": "TEST 8",
         "clicks": 12
     }
 ]

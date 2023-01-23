@@ -1,6 +1,6 @@
-import Logo from "./Logo";
-import UserLogo from "./UserLogo";
-import SelectorDashboard from "./SelectorDashboard";
+import Logo from "./menucomponents/Logo";
+import UserLogo from "./menucomponents/UserLogo";
+import SelectorDashboard from "./menucomponents/SelectorDashboard";
 
 const Menu = (props) => {
 

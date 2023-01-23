@@ -2,6 +2,7 @@ import { useState } from "react";
 import SingleTask from "../dashboardcomponents/SingleTask";
 import TasksCategoryTemp from '../../json/temp/TasksCategoryTemp.json';
 import TaskSearch from './TaskSearch';
+import CreateTaskPopup from "../popups/CreateTaskPopup";
 
 const ActiveTasks = (props) => {
 
@@ -10,7 +11,11 @@ const ActiveTasks = (props) => {
     const [refreshCall, setRefreshCall] = useState(true);
     const [initialCall, setInitialCall] = useState(true);
 
+    const [isOpen, setIsOpen] = useState(false);
 
+    function togglePopUp() {
+        setIsOpen(!isOpen);
+    }
 
     function findActiveTasks() {
         let taskList = [];
@@ -61,7 +66,8 @@ const ActiveTasks = (props) => {
             {tasks.length > 0 && tasks.map(task => <SingleTask className="task-active" name={task.name} category={task.category} key={task.id} date={task.date} time={task.time} />)}
             {tasks.length === 0 && <div>No Active Tasks in this Category</div>}
         </div>
-        <div id="add-task"><span id="plus-icon">+</span></div>
+        <div id="add-task"><span id="plus-icon" onClick={togglePopUp}>+<span className="plus-icon-tooltip">Add a Task</span></span></div>
+        {isOpen && <CreateTaskPopup handleClose={togglePopUp} />}
     </div>
 }
 

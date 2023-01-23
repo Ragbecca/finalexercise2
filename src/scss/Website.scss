@@ -1,0 +1,87 @@
+#websites-list-shower {
+    background-color: white;
+    border-radius: 25px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 10%;
+}
+
+#websites-list-scrollbar {
+    height: 40vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($color: $purple, $alpha: 0.2);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $purple;
+    }
+}
+
+.websites-website {
+    display: flex;
+    flex-direction: column;
+    margin: 2vh 0;
+    width: 100%;
+}
+
+.websites-website-row-1 {
+    display: flex;
+    align-items: center;
+    font-size: x-large;
+}
+
+.websites-website-row-2 {
+    font-size: large;
+    opacity: 0.6;
+}
+
+#website-clicks {
+    border-radius: 25px;
+    background-color: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+#website-clicks-values {
+    display: flex;
+    justify-content: space-between;
+}
+
+.website-clicks-value {
+    width: 6rem;
+    height: 6rem;
+    padding: 1rem;
+    background-color: rgba($color: $purple, $alpha: 0.2);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.website-clicks-value-1 {
+    font-size: x-large;
+}
+
+.website-clicks-value-2 {
+    text-align: center;
+    font-size: x-large;
+}
+
+@media (min-width: $desktop) {
+    #website-clicks {
+        background-color: rgba($color: $purple, $alpha: 0.2);
+    }
+}

@@ -1,4 +1,4 @@
-import { ReactComponent as ReactLogo } from '../img/Logo.svg';
+import { ReactComponent as ReactLogo } from '../../img/Logo.svg';
 
 const Logo = () =>
     <div className="menu-logo">

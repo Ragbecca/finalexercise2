@@ -1,9 +1,18 @@
 import { useState } from "react";
 import Dashboard from "../components/Dashboard";
 import Menu from "../components/Menu";
+import { connect } from "react-redux";
 
-const MainPage = () => {
+const MainPage = (props) => {
     const [selectorState, setSelectorState] = useState("dashboard");
+    const [initialCall, setInitialCall] = useState(true);
+
+    if (initialCall) {
+        setInitialCall(false);
+        if (!props.user.isLoggedIn) {
+            setSelectorState("login");
+        }
+    }
 
     return (
         <div id="main-container">
@@ -15,4 +24,10 @@ const MainPage = () => {
     )
 }
 
-export default MainPage;
+function mapStateToProps(state) {
+    return {
+        user: state
+    }
+}
+
+export default connect(mapStateToProps)(MainPage)

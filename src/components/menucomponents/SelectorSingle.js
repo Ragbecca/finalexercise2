@@ -1,4 +1,4 @@
-const SelectorSingle = (props) => {
+const SelectorSingle = props => {
 
     function changeSelectorState(value) {
         props.setSelectorState(value);

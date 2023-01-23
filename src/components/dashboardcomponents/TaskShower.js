@@ -1,11 +1,18 @@
 import { useState } from "react";
 import SingleTask from "./SingleTask";
 import tasksOld from "../../json/temp/TasksTemp.json"
+import CreateTaskPopup from "../popups/CreateTaskPopup";
 
 const TaskShower = (props) => {
 
     const [tasks, setTasks] = useState([]);
     const [initialCall, setInitialCall] = useState(true);
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    function togglePopUp() {
+        setIsOpen(!isOpen);
+    }
 
     function findThreeTasksClosestBy() {
         let taskList = [];
@@ -49,7 +56,8 @@ const TaskShower = (props) => {
         {tasks.map((task) => {
             return <SingleTask key={task.id} id={task.id} name={task.name} category={task.category} time={task.time} date={task.date} />
         })}
-        <div id="add-task"><span id="plus-icon">+</span></div>
+        <div id="add-task"><span id="plus-icon" onClick={togglePopUp}>+<span className="plus-icon-tooltip">Add a Task</span></span></div>
+        {isOpen && <CreateTaskPopup handleClose={togglePopUp} />}
     </div>
 }
 

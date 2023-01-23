@@ -8,8 +8,8 @@ const DashboardItem = (props) => {
         <div id="dashboard-flex">
             <TaskShower changeSelectorState={props.changeSelectorState} />
             <div className="dashboard-2-big-segments">
-                <WebsitesShower changeSelectorState={props.changeSelectorState} />
-                <Quote changeSelectorState={props.changeSelectorState} />
+                <WebsitesShower changeSelectorState={props.changeSelectorState} globalWebsites={props.globalWebsites} />
+                <Quote changeSelectorState={props.changeSelectorState} dayQuote={props.dayQuote} />
             </div>
         </div>
     </div>

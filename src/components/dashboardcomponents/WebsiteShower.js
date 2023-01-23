@@ -1,7 +1,7 @@
 import SingleWebsite from "./SingleWebsite";
-import websitesJSON from "../../json/temp/WebsitesTemp.json"
 
 const WebsitesShower = (props) => {
+
 
     function changeSelectorStateToWebsites() {
         props.changeSelectorState("websites");
@@ -10,13 +10,13 @@ const WebsitesShower = (props) => {
     let websites = [];
 
     if (window.matchMedia('(min-width: 575px)').matches) {
-        websites = websitesJSON.slice(0, 12);
+        websites = props.globalWebsites.slice(0, 12);
     } else if (window.matchMedia('(min-width: 1024px)').matches) {
-        websites = websitesJSON.slice(0, 12);
+        websites = props.globalWebsites.slice(0, 12);
     } else if (window.matchMedia('(min-width: 1200px)').matches) {
-        websites = websitesJSON.slice(0, 12);
+        websites = props.globalWebsites.slice(0, 12);
     } else {
-        websites = websitesJSON.slice(0, 6);
+        websites = props.globalWebsites.slice(0, 6);
     }
 
     return <div id="dashboard-website-shower">

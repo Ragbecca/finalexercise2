@@ -1,4 +1,6 @@
 import { ReactComponent as ThreeDotsIcon } from '../../img/dots.svg';
+import EditTaskPopup from '../popups/EditTaskPopup';
+import { useState } from 'react';
 
 const SingleTask = (props) => {
     let beforeDifficulty = "#02653c;";
@@ -9,6 +11,12 @@ const SingleTask = (props) => {
     const dateSplit = props.date.split("-").reverse();
 
     let correctDate = "";
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    function togglePopUp() {
+        setIsOpen(!isOpen);
+    }
 
     for (let index = 0; index < dateSplit.length; index++) {
         correctDate = correctDate + dateSplit[index];
@@ -42,7 +50,7 @@ const SingleTask = (props) => {
 
     return <div className={"task-shower-task " + props.class}>
         <div className='task-line-1'>
-            <div className="task-three-dots"><ThreeDotsIcon /></div>
+            <div className="task-three-dots" onClick={togglePopUp}><ThreeDotsIcon /></div>
         </div>
         <div className='task-line-2'>
             {props.category}
@@ -61,6 +69,7 @@ const SingleTask = (props) => {
                 <span className='checkmark'></span>
             </label>
         </div>
+        {isOpen && <EditTaskPopup id={props.id} handleClose={togglePopUp} taskName={props.name} category={props.category} deadlineDate={props.date} deadlineTime={props.time} />}
     </div>
 }
 

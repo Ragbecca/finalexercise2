@@ -1,0 +1,62 @@
+#quotes-list {
+    background-color: white;
+    border-radius: 25px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 10%;
+    width: 90%;
+}
+
+#quotes-list-quote {
+    height: 40vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($color: $purple, $alpha: 0.2);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $purple;
+    }
+}
+
+.quotes-list-quote {
+    display: flex;
+    flex-direction: column;
+    margin: 2vh 0;
+    width: 100%;
+}
+
+.quotes-list-quote-row-1 {
+    display: flex;
+    align-items: center;
+    font-size: x-large;
+}
+
+.quotes-list-quote-row-2 {
+    font-size: large;
+    opacity: 0.6;
+}
+
+@media (min-width: $laptop) {
+    #quotes-list {
+        width: 95%;
+    }
+}
+
+
+@media (min-width: $desktop) {
+    #quotes-list {
+        width: 70%;
+    }
+}

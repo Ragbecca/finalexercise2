@@ -2,7 +2,7 @@ import Selector from "./Selector";
 import { connect } from "react-redux";
 
 
-const SelectorDashboard = (props) => {
+const SelectorDashboard = props => {
 
     const selectorList = [
         "Dashboard", "Tasks", "Websites", "Quotes"
@@ -18,6 +18,7 @@ const SelectorDashboard = (props) => {
     } else {
         return <div id="menu-selector">
             <Selector key="Login" selectorState={props.selectorState} setSelectorState={props.setSelectorState} name="Login" />
+            {/* <Selector key="Signup" selectorState={props.selectorState} setSelectorState={props.setSelectorState} name="Signup" /> */}
             {selectorList.map(value => {
                 return <Selector key={value} selectorState={props.selectorState} setSelectorState={props.setSelectorState} name={value} />
             })}

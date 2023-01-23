@@ -1,0 +1,49 @@
+#login-screen {
+    padding-top: 10%;
+    width: 90vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-input {
+    font-family: $poppins;
+    font-size: x-large;
+}
+
+.login-input-label {
+    font-size: xx-large;
+}
+
+.login-button {
+    font-size: xx-large;
+    margin-top: 2vh;
+    padding: 1vh 2vw;
+    border-radius: 10px;
+    background-color: $purple;
+    color: white;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+.login-button-middle {
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: $desktop) {
+    #login-screen {
+        background-color: white;
+        width: 100%;
+        background-color: white;
+        border-radius: 25px;
+        margin-left: 2vw;
+        padding-left: 1vw;
+        padding-right: 1vw;
+        padding-top: 0;
+    }
+}

@@ -20,7 +20,7 @@ const FinishedTasks = (props) => {
     return <div id="tasks-finished-shower">
         <div><h2 id="task-finished-header-name">Finished Tasks</h2></div>
         <div id="tasks-finished-scrollbar">
-            {tasks.map(task => <FinishedTask name={task.name} category={task.category} key={task.id} />)}
+            {tasks.map(task => <FinishedTask name={task.name} category={task.category} key={task.id} deadlineDate={task.deadlineDate} deadlineTime={task.deadlineTime} />)}
         </div>
     </div>
 }
