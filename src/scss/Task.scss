@@ -170,20 +170,49 @@
     user-select: none;
 }
 
-#plus-icon {
+.icon {
     font-size: xx-large;
     color: white;
     background-color: $purple;
     padding: 0.5rem 1.25rem;
     border-radius: 100%;
     cursor: pointer;
-    position: relative;
 
-    &:hover {
+    &-small {
+        font-size: medium;
+        color: white;
+        background-color: $purple;
+        padding: 0.25rem 0.75rem;
+        margin-right: 2vw;
+        border-radius: 100%;
+        cursor: pointer;
+    }
+
+    &:hover,
+    &-small:hover {
         opacity: 0.6;
     }
 
-    & .plus-icon-tooltip {
+    & .icon-tooltip,
+    &-small .icon-tooltip {
+        visibility: hidden;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        width: 150px;
+        font-size: x-large;
+
+        position: absolute;
+        z-index: 999;
+
+        top: inherit;
+        left: inherit;
+    }
+
+    & .icon-tooltip-right,
+    &-small .icon-tooltip-right {
         visibility: hidden;
         background-color: black;
         color: #fff;
@@ -197,10 +226,13 @@
         z-index: 999;
 
         top: 7.5px;
-        left: 105%;
+        right: 105%;
     }
 
-    &:hover .plus-icon-tooltip {
+    &:hover .icon-tooltip,
+    &-small:hover .icon-tooltip,
+    &:hover .icon-tooltip-right,
+    &-small:hover .icon-tooltip-right {
         visibility: visible;
     }
 }
@@ -261,7 +293,6 @@
 }
 
 .finished-task {
-    margin: 0.5rem;
     border: 1px solid $purple;
     padding: 0 1vw 0 1vw;
     border-radius: 10px;
@@ -300,13 +331,13 @@
     cursor: pointer;
     height: 0;
     width: 0;
-    left: -7vw;
+    left: -2vw;
 }
 
 .finished-task-checkbox .checkmark {
     position: absolute;
-    top: -6vh;
-    left: -7vw;
+    top: -3vh;
+    left: -2vw;
     height: 25px;
     width: 25px;
     background-color: #eee;

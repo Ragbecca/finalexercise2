@@ -1,12 +1,19 @@
 import { ReactComponent as ThreeDotsIcon } from '../../img/dots.svg';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import DeleteTaskPopup from '../popups/DeleteTaskPopup';
+import * as apiCalls from '../../api/apiCalls';
+import AuthContext from '../../misc/AuthContext';
 
 const FinishedTask = (props) => {
+    const contextType = React.useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
 
     function togglePopUp() {
         setIsOpen(!isOpen);
+    }
+
+    function changeStatusToUnChecked() {
+        apiCalls.changeStatusTaskToFalse(contextType.getUser(), props.id).then(props.refreshGlobalTasks(true));
     }
 
     return <div className="finished-task">
@@ -17,11 +24,11 @@ const FinishedTask = (props) => {
         <div className='finished-task-line-2'>
             <h1>{props.name}</h1>
             <label className='finished-task-checkbox'>
-                <input type="checkbox" checked disabled />
+                <input type="checkbox" checked onChange={changeStatusToUnChecked} />
                 <span className='checkmark'></span>
             </label>
         </div>
-        {isOpen && <DeleteTaskPopup handleClose={togglePopUp} taskName={props.name} category={props.category} deadlineDate={props.deadlineDate} deadlineTime={props.deadlineTime} />}
+        {isOpen && <DeleteTaskPopup handleClose={togglePopUp} id={props.id} taskName={props.name} category={props.categoryId} deadlineDate={props.deadlineDate} deadlineTime={props.deadlineTime} refreshGlobalTasks={props.refreshGlobalTasks} />}
     </div>
 }
 

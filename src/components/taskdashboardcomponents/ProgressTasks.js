@@ -1,27 +1,44 @@
+import { useEffect, useState } from "react";
+
 const ProgressTasks = (props) => {
 
     const now = Date.now();
-    let tasksToday = [];
-    let tasksDoneAmount = 0;
-    let tasksAmount = 0;
+    const [tasksToday, setTasksToday] = useState([]);
+    const [refreshCall, setRefreshCall] = useState(true);
+    const [tasksDoneAmount, setTasksDoneAmount] = useState(0);
+    const [tasksAmount, setTasksAmount] = useState(0);
+    const oneDayInMs = 86400000;
+
+    useEffect(() => {
+        setRefreshCall(true);
+    }, [props.globalTasks])
+
+
+    if (refreshCall) {
+        setRefreshCall(false);
+        findTasksToday();
+        countTasksDoneAndAll();
+    }
 
     function findTasksToday() {
+        let tasksTodayTemp = [];
         props.globalTasks.forEach((task) => {
-            const date = new Date(task.date + "T" + task.time).getTime();
-            if ((now - date) > -86400000 && (now - date) < 0 && task.status === false) {
-                tasksToday.push(task);
+            if (task.deadlineDate === null) {
+                return;
+            }
+            const date = new Date(task.deadlineDate.split("T")[0] + "T" + task.deadlineTime).getTime();
+            if ((now - date) > -oneDayInMs && task.status === false) {
+                tasksTodayTemp.push(task);
             }
         }
         )
+        setTasksToday(tasksTodayTemp);
     }
 
     function countTasksDoneAndAll() {
-        tasksDoneAmount = props.globalTasks.filter(x => x.status === true).length;
-        tasksAmount = props.globalTasks.length;
+        setTasksDoneAmount(props.globalTasks.filter(x => x.status === true).length);
+        setTasksAmount(props.globalTasks.length);
     }
-
-    findTasksToday();
-    countTasksDoneAndAll();
 
     return <div id="progress-tasks">
         <h2 id="progress-tasks-name">Progress</h2>

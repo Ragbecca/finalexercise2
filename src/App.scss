@@ -10,6 +10,7 @@
 @import './scss/Login.scss';
 @import './scss/Popup.scss';
 @import './scss/SelectSearch.scss';
+@import './scss/AdminDashboard.scss';
 
 .red-color {
     color: $red;
@@ -66,6 +67,71 @@
     position: relative;
     padding-top: 10vh;
 }
+
+#homepage {
+    padding-top: 10vh;
+    position: relative;
+}
+
+#homepage-container {
+    display: block;
+    width: 100%;
+}
+
+#homepage-main {
+    padding-top: 10%;
+    width: 90vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+#homepage-divider {
+    border-radius: 25px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+#homepage-amount-users {
+    background-color: rgba($color: $purple, $alpha: 0.2);
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#homepage-amount-users-top {
+    font-size: x-large;
+    font-weight: $poppins-bold;
+}
+
+#homepage-amount-users-bottom {
+    font-size: xx-large;
+    font-weight: $poppins-bold;
+}
+
+.homepage-to {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.homepage-link-to {
+    font-size: xx-large;
+    background-color: rgba($color: $purple, $alpha: 0.2);
+    padding: 1.5rem;
+    border-radius: 10px;
+    transition: 0.5s;
+    color: $purple;
+
+    &:hover {
+        background-color: rgba($color: $purple, $alpha: 0.5);
+    }
+}
+
 
 @media (min-width: $desktop) {
     #header {

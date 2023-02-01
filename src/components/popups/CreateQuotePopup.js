@@ -2,12 +2,10 @@ import React from "react";
 import InputLabelTop from "../misccomponents/InputLabelTop";
 import { useState } from "react";
 import ButtonWithProgress from "../misccomponents/ButtonWithProgress";
-import { connect } from "react-redux";
 
 const CreateQuotePopup = props => {
     const [quote, setQuote] = useState('');
     const [author, setAuthor] = useState('');
-    const [pendingApiCall, setPendingApiCall] = useState(false);
 
     function onChangeQuote(event) {
         setQuote(event.target.value);
@@ -52,8 +50,7 @@ const CreateQuotePopup = props => {
                 <div className="popup-line-5">
                     <ButtonWithProgress onClick={onClickCreateTask}
                         disabled={disableSubmit}
-                        pendingApiCall={pendingApiCall}
-                        text="Add Website"
+                        text="Add Quote"
                         classes="create-task-button" />
                 </div>
             </div>
@@ -61,10 +58,4 @@ const CreateQuotePopup = props => {
     );
 };
 
-function mapStateToProps(state) {
-    return {
-        user: state
-    }
-}
-
-export default connect(mapStateToProps)(CreateQuotePopup);
+export default CreateQuotePopup;

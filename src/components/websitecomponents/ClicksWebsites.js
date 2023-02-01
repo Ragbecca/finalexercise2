@@ -14,10 +14,11 @@ const ClicksWebsites = (props) => {
 
     sortWebsites();
 
+
     return <div id="website-clicks">
         <h2 id="website-clicks-name">Most Clicks</h2>
         <div id="website-clicks-values">
-            {sortedWebsites.map(website => <ClickWebsiteSingle key={website.id} clicks={website.clicks} img={website.img} name={website.name} />)}
+            {sortedWebsites.map(website => <ClickWebsiteSingle key={website.websiteID} id={website.websiteID} clicks={website.clicks} img={website.icon} name={website.name} link={website.url} refreshGlobalWebsites={props.refreshGlobalWebsites} />)}
         </div>
     </div>
 }

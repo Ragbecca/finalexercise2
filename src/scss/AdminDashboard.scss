@@ -1,0 +1,43 @@
+#dashboard-admin-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.admin-category-scrollbar {
+    height: 30vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($color: $purple, $alpha: 0.2);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $purple;
+    }
+}
+
+.admin-category-single {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $purple;
+    height: 8vh;
+}
+
+.admin-category-header {
+    font-size: larger;
+}
+
+.admin-category {
+    position: relative;
+}

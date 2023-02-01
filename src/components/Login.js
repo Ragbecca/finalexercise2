@@ -1,65 +1,83 @@
 import React, { useState } from "react";
 import Input from "./misccomponents/Input";
 import ButtonWithProgress from "./misccomponents/ButtonWithProgress";
-import { connect } from "react-redux";
-import * as authActions from "../redux/authActions"
 import * as apiCalls from "../api/apiCalls";
+import AuthContext from "../misc/AuthContext";
+import { handleLogError } from "../misc/Helpers";
+import { parseJwt } from "../misc/Helpers";
+import { Navigate } from "react-router-dom";
 
 const Login = (props) => {
+    const contextType = React.useContext(AuthContext);
 
-    const [apiError, setApiError] = useState();
-    const [user, setUser] = useState({ "username": "", "password": "" });
-    const [pendingApiCall, setPendingApiCall] = useState(false);
+    const [isError, setError] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [initialCall, setInitialCall] = useState(true);
+
+    if (initialCall) {
+        setInitialCall(false);
+        setLoggedIn(contextType.userIsAuthenticated());
+    }
 
     function onChangeUsername(event) {
-        const jsonValue = { "username": event.target.value, "password": user.password };
-        setUser(jsonValue);
-        setApiError(undefined);
+        setUsername(event.target.value);
     }
 
     function onChangePassword(event) {
-        const jsonValue = { "username": user.username, "password": event.target.value };
-        setUser(jsonValue);
-        setApiError(undefined);
+        setPassword(event.target.value);
     }
 
     function onClickLogin() {
-        const body = {
-            username: user.username,
-            password: user.password
+        if (!(username && password)) {
+            setError(true);
+            return;
         }
-        setPendingApiCall(true);
-        apiCalls.login(body)
-            .then((response) => { setPendingApiCall(false) })
+        apiCalls.authenticate(username, password)
+            .then(response => {
+                const { accessToken } = response.data;
+                const data = parseJwt(accessToken);
+                const user = { data, accessToken };
+
+                contextType.userLogin(user);
+
+                setError(false);
+                setLoggedIn(true);
+                setUsername('');
+                setPassword('');
+            })
             .catch(error => {
-                if (error.response) {
-                    setApiError(error.response.data.message);
-                    setPendingApiCall(false);
-                }
-            });
+                handleLogError(error);
+                setError(true);
+            })
     }
 
     let disableSubmit = false;
-    if (user === undefined || user.username === '') {
+    if (username === '' || password === '') {
         disableSubmit = true;
+    }
+
+    if (isLoggedIn) {
+        return <Navigate to="/homepage" replace></Navigate>;
     }
 
     return (
         <div id="login-screen">
-            <div className="">
+            <div id="login-screen-container">
                 <div className="login-input-label">Username</div>
                 <div className="">
-                    <Input placeholder="Jouw email"
+                    <Input placeholder="Your username"
                         classes="login-input"
-                        value={user.username} onChange={onChangeUsername} />
+                        value={username} onChange={onChangeUsername} />
                 </div>
                 <div className="login-input-label">Wachtwoord</div>
                 <div className="">
-                    <Input placeholder="Jouw wachtwoord" type="password"
+                    <Input placeholder="Your password" type="password"
                         classes="login-input"
-                        value={user.password} onChange={onChangePassword} />
+                        value={password} onChange={onChangePassword} />
                 </div>
-                <div>{apiError && (
+                <div>{isError && (
                     <div className="">
                         <div className="login-alert" role="alert">Deze gegevens kloppen niet</div>
                     </div>
@@ -67,7 +85,6 @@ const Login = (props) => {
                 <div className="login-button-middle">
                     <ButtonWithProgress onClick={onClickLogin}
                         disabled={disableSubmit}
-                        pendingApiCall={pendingApiCall}
                         text="Login"
                         classes="login-button" />
                 </div>
@@ -76,19 +93,4 @@ const Login = (props) => {
     );
 }
 
-Login.defaultProps = {
-    actions: {
-        login: () => new Promise((resolve, reject) => resolve({}))
-    },
-    dispatch: () => { }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: {
-            login: (body) => dispatch(authActions.loginHandler(body))
-        }
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

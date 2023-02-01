@@ -16,7 +16,6 @@ const TaskSearch = (props) => {
         } else {
             props.changeSearch(props.name);
         }
-        props.refreshCall(true);
     }
 
     return <div onClick={changeSearchInput} className={"task-category" + isActiveClass}>

@@ -1,28 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import SelectSearch from 'react-select-search';
-import tasksCategoryJson from '../../json/temp/TasksCategoryTemp.json';
+import * as apiCalls from '../../api/apiCalls';
+import AuthContext from '../../misc/AuthContext';
 
 const CategorySelector = (props) => {
-    const [category, setCategory] = useState(0);
+    const contextType = React.useContext(AuthContext);
+
+    const [category, setCategory] = useState(props.currentValue);
     const [categories, setCategories] = useState([]);
+    const [categoryOptions, setCategoryOptions] = useState([]);
     const [initialCall, setInitialCall] = useState(true);
 
     if (initialCall) {
         setInitialCall(false);
-        let categoriesTemp = [];
-        tasksCategoryJson.forEach(task => {
-            const categoryTemp = { "name": task.categoryName, "value": task.id }
-            categoriesTemp.push(categoryTemp);
-        });
-        setCategories(categoriesTemp);
+        apiCalls.getTaskCategories(contextType.getUser()).then(results => {
+            setCategories(results.data)
+        })
     }
 
     useEffect(() => {
         props.onChange(category);
-    }, [category])
+    }, [category]);
+
+    useEffect(() => {
+        if (categories.length === 0) {
+            return;
+        } else {
+            let tempCategories = [];
+            categories.forEach(singleCategory => {
+                const tempCategory = { "name": singleCategory.categoryName, "value": singleCategory.id };
+                tempCategories.push(tempCategory);
+            })
+            tempCategories.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return 1;
+                } else if (a.name < b.name) {
+                    return -1;
+                }
+                return 0;
+            });
+            setCategoryOptions(tempCategories);
+        }
+    }, [categories]);
 
     return (
-        <SelectSearch options={categories} value={category} onChange={setCategory} name="category" placeholder="Search a category *" search />
+        <SelectSearch options={categoryOptions} value={category} onChange={setCategory} name="category" placeholder="Search a category *" search />
     );
 };
 

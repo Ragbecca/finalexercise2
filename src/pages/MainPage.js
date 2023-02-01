@@ -1,18 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dashboard from "../components/Dashboard";
 import Menu from "../components/Menu";
-import { connect } from "react-redux";
+import React from "react";
 
-const MainPage = (props) => {
+const MainPage = () => {
     const [selectorState, setSelectorState] = useState("dashboard");
     const [initialCall, setInitialCall] = useState(true);
 
     if (initialCall) {
         setInitialCall(false);
-        if (!props.user.isLoggedIn) {
-            setSelectorState("login");
+        if (localStorage.getItem("selector-state") !== null && localStorage.getItem("selector-state") !== undefined) {
+            setSelectorState(localStorage.getItem("selector-state"));
         }
     }
+
+    useEffect(() => {
+        localStorage.setItem("selector-state", selectorState)
+    }, [selectorState])
+
+
 
     return (
         <div id="main-container">
@@ -24,10 +30,4 @@ const MainPage = (props) => {
     )
 }
 
-function mapStateToProps(state) {
-    return {
-        user: state
-    }
-}
-
-export default connect(mapStateToProps)(MainPage)
+export default MainPage;

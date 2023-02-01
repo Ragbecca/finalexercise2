@@ -8,6 +8,12 @@
     align-items: center;
 }
 
+#login-screen-container {
+    background-color: white;
+    padding: 5vw;
+    border-radius: 25px;
+}
+
 .login-input {
     font-family: $poppins;
     font-size: x-large;
@@ -37,13 +43,15 @@
 
 @media (min-width: $desktop) {
     #login-screen {
-        background-color: white;
         width: 100%;
-        background-color: white;
         border-radius: 25px;
         margin-left: 2vw;
         padding-left: 1vw;
         padding-right: 1vw;
         padding-top: 0;
+    }
+
+    #login-screen-container {
+        background-color: white;
     }
 }

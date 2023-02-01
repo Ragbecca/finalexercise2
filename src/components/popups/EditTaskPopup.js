@@ -3,15 +3,12 @@ import InputLabelTop from "../misccomponents/InputLabelTop";
 import { useState } from "react";
 import CategorySelector from "../misccomponents/CategorySelector";
 import ButtonWithProgress from "../misccomponents/ButtonWithProgress";
-import { connect } from "react-redux";
 
 const EditTaskPopup = props => {
     const [taskName, setTaskName] = useState(props.taskName);
-    const [category, setCategory] = useState(props.category);
-    const [pendingApiCall, setPendingApiCall] = useState(false);
-    const [deadlineDate, setDeadlineDate] = useState(props.deadlineDate);
+    const [category, setCategory] = useState(props.categoryId);
+    const [deadlineDate, setDeadlineDate] = useState(props.deadlineDate.split("T")[0]);
     const [deadlineTime, setDeadlineTime] = useState(props.deadlineTime);
-    const id = props.id;
 
     function onChangeName(event) {
         setTaskName(event.target.value);
@@ -61,8 +58,8 @@ const EditTaskPopup = props => {
                     taskCategory: category,
                 }
             }
+            console.log(body);
         }
-        console.log(body);
     }
 
     let disableSubmit = false;
@@ -84,7 +81,7 @@ const EditTaskPopup = props => {
                         value={taskName} onChange={onChangeName} />
                 </div>
                 <div className="popup-line-2">
-                    <CategorySelector onChange={onChangeCategory} />
+                    <CategorySelector onChange={onChangeCategory} currentValue={category} />
                 </div>
                 <div className="popup-line-3">
                     <InputLabelTop label="Deadline date"
@@ -98,7 +95,6 @@ const EditTaskPopup = props => {
                 <div className="popup-line-5">
                     <ButtonWithProgress onClick={onClickCreateTask}
                         disabled={disableSubmit}
-                        pendingApiCall={pendingApiCall}
                         text="Edit Task"
                         classes="create-task-button" />
                 </div>
@@ -107,10 +103,4 @@ const EditTaskPopup = props => {
     );
 };
 
-function mapStateToProps(state) {
-    return {
-        user: state
-    }
-}
-
-export default connect(mapStateToProps)(EditTaskPopup);
+export default EditTaskPopup;

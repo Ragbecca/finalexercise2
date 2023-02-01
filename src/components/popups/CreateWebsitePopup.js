@@ -2,13 +2,16 @@ import React from "react";
 import InputLabelTop from "../misccomponents/InputLabelTop";
 import { useState } from "react";
 import ButtonWithProgress from "../misccomponents/ButtonWithProgress";
-import { connect } from "react-redux";
+import InputLabelTextArea from "../misccomponents/InputLabelTextArea";
+import AuthContext from "../../misc/AuthContext";
+import * as apiCalls from "../../api/apiCalls";
 
-const createWebsitePopup = props => {
+const CreateWebsitePopup = props => {
+    const contextType = React.useContext(AuthContext);
+
     const [websiteName, setWebsiteName] = useState('');
     const [websiteURL, setWebsiteURL] = useState('');
     const [websiteDescription, setWebsiteDescription] = useState('');
-    const [pendingApiCall, setPendingApiCall] = useState(false);
 
     function onChangeName(event) {
         setWebsiteName(event.target.value);
@@ -25,10 +28,12 @@ const createWebsitePopup = props => {
     function onClickCreateTask() {
         let body = {
             websiteName: websiteName,
-            websiteURL: websiteURL,
-            websiteDescription: websiteDescription
+            url: websiteURL,
+            description: websiteDescription,
+            username: contextType.getUser().data.name
         };
         console.log(body);
+        apiCalls.addWebsite(contextType.getUser(), body).then(props.refreshGlobalWebsites(true)).then(props.handleClose);
     }
 
     let disableSubmit = false;
@@ -56,7 +61,7 @@ const createWebsitePopup = props => {
                         value={websiteURL} onChange={onChangeURL} />
                 </div>
                 <div className="popup-line-3-2">
-                    <InputLabelTop label="Website description"
+                    <InputLabelTextArea label="Website description"
                         mandatory={true}
                         value={websiteDescription} onChange={onChangeDescription} />
                 </div>
@@ -64,7 +69,6 @@ const createWebsitePopup = props => {
                 <div className="popup-line-5">
                     <ButtonWithProgress onClick={onClickCreateTask}
                         disabled={disableSubmit}
-                        pendingApiCall={pendingApiCall}
                         text="Add Website"
                         classes="create-task-button" />
                 </div>
@@ -73,10 +77,4 @@ const createWebsitePopup = props => {
     );
 };
 
-function mapStateToProps(state) {
-    return {
-        user: state
-    }
-}
-
-export default connect(mapStateToProps)(createWebsitePopup);
+export default CreateWebsitePopup;

@@ -3,12 +3,14 @@ import InputLabelTop from "../misccomponents/InputLabelTop";
 import { useState } from "react";
 import CategorySelector from "../misccomponents/CategorySelector";
 import ButtonWithProgress from "../misccomponents/ButtonWithProgress";
-import { connect } from "react-redux";
+import AuthContext from "../../misc/AuthContext";
+import * as apiCalls from "../../api/apiCalls";
 
 const CreateTaskPopup = props => {
+    const contextType = React.useContext(AuthContext);
+
     const [taskName, setTaskName] = useState('');
     const [category, setCategory] = useState();
-    const [pendingApiCall, setPendingApiCall] = useState(false);
     const [deadlineDate, setDeadlineDate] = useState('');
     const [deadlineTime, setDeadlineTime] = useState('');
 
@@ -29,43 +31,23 @@ const CreateTaskPopup = props => {
     }
 
     function onClickCreateTask() {
-        let body = {};
+        let body = {
+            taskName: taskName,
+            taskCategoryId: category,
+            username: contextType.getUser().data.name
+        };
         if (deadlineDate !== '' && deadlineTime !== '') {
             body = {
-                username: props.user.username,
-                taskName: taskName,
-                taskCategory: category,
+                ...body,
                 deadlineDate: deadlineDate,
                 deadlineTime: deadlineTime
             }
-        } else {
-            if (deadlineDate !== '') {
-                body = {
-                    username: props.user.username,
-                    taskName: taskName,
-                    taskCategory: category,
-                    deadlineDate: deadlineDate
-                }
-            } else if (deadlineTime !== '') {
-                body = {
-                    username: props.user.username,
-                    taskName: taskName,
-                    taskCategory: category,
-                    deadlineTime: deadlineTime
-                }
-            } else {
-                body = {
-                    username: props.user.username,
-                    taskName: taskName,
-                    taskCategory: category,
-                }
-            }
         }
-        console.log(body);
+        apiCalls.addTask(contextType.getUser(), body).then(props.refreshGlobalTasks(true)).then(props.handleClose);
     }
 
     let disableSubmit = false;
-    if (taskName === '' || category === '') {
+    if (taskName === '' || category === undefined) {
         disableSubmit = true;
     }
 
@@ -97,7 +79,6 @@ const CreateTaskPopup = props => {
                 <div className="popup-line-5">
                     <ButtonWithProgress onClick={onClickCreateTask}
                         disabled={disableSubmit}
-                        pendingApiCall={pendingApiCall}
                         text="Create Task"
                         classes="create-task-button" />
                 </div>
@@ -106,10 +87,4 @@ const CreateTaskPopup = props => {
     );
 };
 
-function mapStateToProps(state) {
-    return {
-        user: state
-    }
-}
-
-export default connect(mapStateToProps)(CreateTaskPopup);
+export default CreateTaskPopup;

@@ -1,6 +1,6 @@
 import SingleWebsite from "./SingleWebsite";
 
-const WebsitesShower = (props) => {
+const WebsiteContainer = (props) => {
 
 
     function changeSelectorStateToWebsites() {
@@ -10,10 +10,6 @@ const WebsitesShower = (props) => {
     let websites = [];
 
     if (window.matchMedia('(min-width: 575px)').matches) {
-        websites = props.globalWebsites.slice(0, 12);
-    } else if (window.matchMedia('(min-width: 1024px)').matches) {
-        websites = props.globalWebsites.slice(0, 12);
-    } else if (window.matchMedia('(min-width: 1200px)').matches) {
         websites = props.globalWebsites.slice(0, 12);
     } else {
         websites = props.globalWebsites.slice(0, 6);
@@ -26,10 +22,10 @@ const WebsitesShower = (props) => {
         </div>
         <div id="dashboard-website-shower-grid">
             {websites.map(website => {
-                return <SingleWebsite img={website.img} key={website.id} name={website.name} link={website.link} />
+                return <SingleWebsite img={website.icon} id={website.websiteID} key={website.websiteID} name={website.name} link={website.url} refreshGlobalWebsites={props.refreshGlobalWebsites} />
             })}
         </div>
     </div>
 }
 
-export default WebsitesShower;
+export default WebsiteContainer;

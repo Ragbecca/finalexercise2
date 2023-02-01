@@ -1,35 +1,30 @@
 import Selector from "./Selector";
-import { connect } from "react-redux";
+import AuthContext from "../../misc/AuthContext";
+import React from "react";
 
 
 const SelectorDashboard = props => {
+    const contextType = React.useContext(AuthContext);
 
     const selectorList = [
-        "Dashboard", "Tasks", "Websites", "Quotes"
+        "Logout", "Dashboard", "Tasks", "Websites", "Quotes"
     ];
 
-    if (props.user.isLoggedIn) {
+    if (contextType.getUser().data.rol.includes("ROLE_ADMIN")) {
+        return <div id="menu-selector">
+            {selectorList.map(value => {
+                return <Selector key={value} selectorState={props.selectorState} setSelectorState={props.setSelectorState} name={value} />
+            })}
+            <Selector key="Categories" selectorState={props.selectorState} setSelectorState={props.setSelectorState} name="Admin" />
+        </div>;
+    } else {
         return <div id="menu-selector">
             <Selector key="Logout" selectorState={props.selectorState} setSelectorState={props.setSelectorState} name="Logout" />
             {selectorList.map(value => {
                 return <Selector key={value} selectorState={props.selectorState} setSelectorState={props.setSelectorState} name={value} />
             })}
         </div>;
-    } else {
-        return <div id="menu-selector">
-            <Selector key="Login" selectorState={props.selectorState} setSelectorState={props.setSelectorState} name="Login" />
-            {/* <Selector key="Signup" selectorState={props.selectorState} setSelectorState={props.setSelectorState} name="Signup" /> */}
-            {selectorList.map(value => {
-                return <Selector key={value} selectorState={props.selectorState} setSelectorState={props.setSelectorState} name={value} />
-            })}
-        </div>;
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        user: state
-    }
-}
-
-export default connect(mapStateToProps)(SelectorDashboard);
+export default SelectorDashboard;
