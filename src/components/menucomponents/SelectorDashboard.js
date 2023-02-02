@@ -3,7 +3,7 @@ import AuthContext from "../../misc/AuthContext";
 import React from "react";
 
 
-const SelectorDashboard = props => {
+const SelectorDashboard = () => {
     const contextType = React.useContext(AuthContext);
 
     const selectorList = [
@@ -13,15 +13,15 @@ const SelectorDashboard = props => {
     if (contextType.getUser().data.rol.includes("ROLE_ADMIN")) {
         return <div id="menu-selector">
             {selectorList.map(value => {
-                return <Selector key={value} selectorState={props.selectorState} setSelectorState={props.setSelectorState} name={value} />
+                return <Selector key={value} name={value} />
             })}
-            <Selector key="Categories" selectorState={props.selectorState} setSelectorState={props.setSelectorState} name="Admin" />
+            <Selector key="Categories" name="Admin" />
         </div>;
     } else {
         return <div id="menu-selector">
-            <Selector key="Logout" selectorState={props.selectorState} setSelectorState={props.setSelectorState} name="Logout" />
+            <Selector key="Logout" name="Logout" />
             {selectorList.map(value => {
-                return <Selector key={value} selectorState={props.selectorState} setSelectorState={props.setSelectorState} name={value} />
+                return <Selector key={value} name={value} />
             })}
         </div>;
     }

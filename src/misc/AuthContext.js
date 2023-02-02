@@ -36,7 +36,7 @@ class AuthProvider extends Component {
     }
 
     userLogout = () => {
-        localStorage.clear();
+        localStorage.removeItem('user');
         this.setState({ user: null });
     }
 
@@ -46,16 +46,16 @@ class AuthProvider extends Component {
         const { getUser, userIsAuthenticated, userLogin, userLogout } = this;
 
         return (
-            <AuthContext.Provider value={{ user, getUser, userIsAuthenticated, userLogin, userLogout, }}>
+            <AuthContext.Provider value={{ user, getUser, userIsAuthenticated, userLogin, userLogout }}>
                 {children}
             </AuthContext.Provider>
         )
     }
 }
 
-export default AuthContext
+export default AuthContext;
 
-export function useAuth() {
+export function useAuthContext() {
     return useContext(AuthContext);
 }
 

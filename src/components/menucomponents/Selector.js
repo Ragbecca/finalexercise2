@@ -22,11 +22,11 @@ const Selector = (props) => {
     ];
 
     if (props.name === "Logout") {
-        return <LogoutSelector name={props.name} setSelectorState={props.setSelectorState} selectorState={props.selectorState}>{imagesList.find((a) => a.key.toLowerCase() === "logoutlogo")}</LogoutSelector>
+        return <LogoutSelector name={props.name}>{imagesList.find((a) => a.key.toLowerCase() === "logoutlogo")}</LogoutSelector>
     } else if (props.name !== "") {
-        return <SelectorSingle name={props.name} setSelectorState={props.setSelectorState} selectorState={props.selectorState}>{imagesList.find((a) => a.key.toLowerCase().includes(props.name.toLowerCase()))}</SelectorSingle>
+        return <SelectorSingle name={props.name}>{imagesList.find((a) => a.key.toLowerCase().includes(props.name.toLowerCase()))}</SelectorSingle>
     } else {
-        return <SelectorSingle name={props.name} setSelectorState={props.setSelectorState} selectorState={props.selectorState}>{imagesList.find((a) => a.key.toLowerCase() === "unknownlogo")}</SelectorSingle>
+        return <SelectorSingle name={props.name}>{imagesList.find((a) => a.key.toLowerCase() === "unknownlogo")}</SelectorSingle>
     }
 }
 

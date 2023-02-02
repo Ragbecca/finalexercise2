@@ -5,9 +5,12 @@ import { greenColor, purpleColor, redColor, yellowColor, blueColor } from '../..
 import AuthContext from '../../misc/AuthContext';
 import React from 'react';
 import * as apiCalls from '../../api/apiCalls';
+import TaskContext from '../../misc/TaskContext';
 
 const SingleTask = (props) => {
     const contextType = React.useContext(AuthContext);
+    const contextTypeTasks = React.useContext(TaskContext);
+
     let difficultyColorCode = "#000000";
     const oneDayInMs = 86400000;
     const oneHourInMs = 3600000;
@@ -47,7 +50,7 @@ const SingleTask = (props) => {
     }
 
     function changeStatusToChecked() {
-        apiCalls.changeStatusTaskToTrue(contextType.getUser(), props.id).then(props.refreshGlobalTasks(true));
+        apiCalls.changeStatusTaskToTrue(contextType.getUser(), props.id).then(contextTypeTasks.setTasks("ragbecca"));
     }
 
     return <div className={"task-shower-task " + props.class}>

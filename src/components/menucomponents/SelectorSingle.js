@@ -1,11 +1,15 @@
+import React from "react";
+import SelectorContext from "../../misc/SelectorContext";
+
 const SelectorSingle = props => {
+    const contextTypeSelector = React.useContext(SelectorContext);
 
     function changeSelectorState(value) {
-        props.setSelectorState(value);
+        contextTypeSelector.setSelectorState(value);
     };
 
     let stateOfButton = "";
-    if (props.selectorState === props.name.toLowerCase()) {
+    if (contextTypeSelector.selectorState === props.name.toLowerCase()) {
         stateOfButton = " active";
     } else {
         stateOfButton = " inactive";

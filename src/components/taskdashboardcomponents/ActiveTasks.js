@@ -4,20 +4,35 @@ import TaskSearch from './TaskSearch';
 import CreateTaskPopup from "../popups/CreateTaskPopup";
 import * as apiCalls from '../../api/apiCalls';
 import AuthContext from "../../misc/AuthContext";
+import TaskContext from "../../misc/TaskContext";
+import SelectorContext from "../../misc/SelectorContext";
 
-const ActiveTasks = (props) => {
+const ActiveTasks = () => {
     const contextType = React.useContext(AuthContext);
+    const contextTypeTasks = React.useContext(TaskContext);
+    const contextTypeSelector = React.useContext(SelectorContext);
 
     const [tasks, setTasks] = useState([]);
     const [searchInput, setSearchInput] = useState('');
-    const [initialCall, setInitialCall] = useState(true);
     const [taskCategories, setTaskCategories] = useState([]);
+    const [isChangeTasks, setChangeTasks] = useState(false);
 
     const [isOpen, setIsOpen] = useState(false);
 
-    function togglePopUp() {
-        setIsOpen(!isOpen);
-    }
+    useEffect(() => {
+        if (contextTypeTasks.refreshCall === false) {
+            return;
+        }
+        setChangeTasks(true);
+    }, [contextTypeTasks.refreshCall]);
+
+    useEffect(() => {
+        console.log("HERE 1");
+        if (contextTypeSelector.selectorState !== "tasks" || contextTypeTasks.initialCall === false) {
+            return;
+        }
+        setChangeTasks(true);
+    }, [contextTypeTasks.selectorState, contextTypeTasks.initialCall, searchInput]);
 
     function findCategories() {
         apiCalls.getTaskCategories(contextType.getUser()).then(result => setTaskCategories(result.data));
@@ -26,7 +41,7 @@ const ActiveTasks = (props) => {
     function findActiveTasks() {
         let newTaskList = [];
         let taskList = [];
-        props.globalTasks.filter(t => !t.status).forEach(t => {
+        contextTypeTasks.getTasks().filter(t => !t.status).forEach(t => {
             if (t.deadlineDate !== null) {
                 taskList.push({
                     "id": t.id,
@@ -45,50 +60,19 @@ const ActiveTasks = (props) => {
             return a.date - b.date;
         });
 
-        taskList.map(t => newTaskList.push(props.globalTasks.find(task => task.id === t.id)));
+        taskList.map(t => newTaskList.push(contextTypeTasks.getTasks().find(task => task.id === t.id)));
         setTasks(newTaskList);
     }
 
-    if (initialCall) {
-        setInitialCall(false);
-        findCategories();
+    function togglePopUp() {
+        setIsOpen(!isOpen);
     }
 
-
-    useEffect(() => {
-        function findActiveTasks() {
-            let newTaskList = [];
-            let taskList = [];
-            props.globalTasks.filter(t => !t.status).forEach(t => {
-                if (t.deadlineDate !== null) {
-                    taskList.push({
-                        "id": t.id,
-                        "date": new Date(t.deadlineDate.split("T")[0] + "T" + t.deadlineTime)
-                    });
-                } else {
-                    taskList.push({
-                        "id": t.id,
-                        "date": undefined
-                    });
-                }
-            });
-
-            taskList = taskList.sort(function (a, b) {
-                if (a.date === undefined) return 1;
-                if (b.date === undefined) return -1;
-                return a.date - b.date;
-            });
-
-            taskList.map(t => newTaskList.push(props.globalTasks.find(task => task.id === t.id)));
-
-            if (searchInput !== "") {
-                newTaskList = newTaskList.filter(t => t.taskCategory.categoryName === searchInput);
-            }
-
-            setTasks(newTaskList);
-        }
+    if (isChangeTasks) {
+        setChangeTasks(false);
         findActiveTasks();
-    }, [props.globalTasks, searchInput])
+        findCategories();
+    }
 
 
     return <div id="tasks-active-shower">
@@ -98,11 +82,11 @@ const ActiveTasks = (props) => {
             {taskCategories.map(category => <TaskSearch name={category.categoryName} activeSearch={searchInput} changeSearch={setSearchInput} key={category.id} />)}
         </div>
         <div id="tasks-active-scrollbar">
-            {tasks.length > 0 && tasks.map(task => <SingleTask className="task-active" id={task.id} name={task.taskName} category={task.taskCategory.categoryName} key={task.id} date={task.deadlineDate} time={task.deadlineTime} refreshGlobalTasks={props.refreshGlobalTasks} />)}
+            {tasks.length > 0 && tasks.map(task => <SingleTask className="task-active" id={task.id} name={task.taskName} category={task.taskCategory.categoryName} key={task.id} date={task.deadlineDate} time={task.deadlineTime} />)}
             {tasks.length === 0 && <div>No Active Tasks in this Category</div>}
         </div>
         <div className="add-task"><span className="icon" onClick={togglePopUp}>+<span className="icon-tooltip">Add a Task</span></span></div>
-        {isOpen && <CreateTaskPopup handleClose={togglePopUp} refreshGlobalTasks={props.refreshGlobalTasks} />}
+        {isOpen && <CreateTaskPopup handleClose={togglePopUp} />}
     </div>
 }
 

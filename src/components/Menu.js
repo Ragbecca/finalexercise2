@@ -2,7 +2,7 @@ import Logo from "./menucomponents/Logo";
 import UserLogo from "./menucomponents/UserLogo";
 import SelectorDashboard from "./menucomponents/SelectorDashboard";
 
-const Menu = (props) => {
+const Menu = () => {
 
     return <div className="menu">
         <div className="menu-1">
@@ -13,7 +13,7 @@ const Menu = (props) => {
                 <UserLogo />
             </div>
         </div>
-        <SelectorDashboard setSelectorState={props.setSelectorState} selectorState={props.selectorState} />
+        <SelectorDashboard />
     </div>;
 }
 

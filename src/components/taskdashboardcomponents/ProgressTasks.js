@@ -1,28 +1,36 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import SelectorContext from "../../misc/SelectorContext";
+import TaskContext from "../../misc/TaskContext";
 
 const ProgressTasks = (props) => {
+    const contextTypeTasks = React.useContext(TaskContext);
+    const contextTypeSelector = React.useContext(SelectorContext);
+
+    const [isChangeTasks, setChangeTasks] = useState(false);
 
     const now = Date.now();
     const [tasksToday, setTasksToday] = useState([]);
-    const [refreshCall, setRefreshCall] = useState(true);
     const [tasksDoneAmount, setTasksDoneAmount] = useState(0);
     const [tasksAmount, setTasksAmount] = useState(0);
     const oneDayInMs = 86400000;
 
     useEffect(() => {
-        setRefreshCall(true);
-    }, [props.globalTasks])
+        if (contextTypeTasks.refreshCall === false) {
+            return;
+        }
+        setChangeTasks(true);
+    }, [contextTypeTasks.refreshCall]);
 
+    useEffect(() => {
+        if (contextTypeSelector.selectorState !== "tasks" || contextTypeTasks.initialCall === false) {
+            return;
+        }
+        setChangeTasks(true);
+    }, [contextTypeSelector.selectorState, contextTypeTasks.initialCall]);
 
-    if (refreshCall) {
-        setRefreshCall(false);
-        findTasksToday();
-        countTasksDoneAndAll();
-    }
-
-    function findTasksToday() {
+    function setProgressTasks() {
         let tasksTodayTemp = [];
-        props.globalTasks.forEach((task) => {
+        contextTypeTasks.getTasks().forEach((task) => {
             if (task.deadlineDate === null) {
                 return;
             }
@@ -33,11 +41,13 @@ const ProgressTasks = (props) => {
         }
         )
         setTasksToday(tasksTodayTemp);
+        setTasksDoneAmount(contextTypeTasks.getTasks().filter(x => x.status === true).length);
+        setTasksAmount(contextTypeTasks.getTasks().length);
     }
 
-    function countTasksDoneAndAll() {
-        setTasksDoneAmount(props.globalTasks.filter(x => x.status === true).length);
-        setTasksAmount(props.globalTasks.length);
+    if (isChangeTasks) {
+        setChangeTasks(false);
+        setProgressTasks();
     }
 
     return <div id="progress-tasks">

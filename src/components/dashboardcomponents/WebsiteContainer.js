@@ -1,18 +1,46 @@
+import SelectorContext from "../../misc/SelectorContext";
 import SingleWebsite from "./SingleWebsite";
+import React, { useState, useEffect } from "react";
+import WebsiteContext from "../../misc/WebsiteContext";
 
 const WebsiteContainer = (props) => {
+    const contextTypeSelector = React.useContext(SelectorContext);
+    const contextTypeWebsite = React.useContext(WebsiteContext);
 
+    const [websitesFromDB, setWebsitesFromDB] = useState([]);
+    const [websites, setWebsites] = useState([]);
 
     function changeSelectorStateToWebsites() {
-        props.changeSelectorState("websites");
+        contextTypeSelector.setSelectorState("websites");
     }
 
-    let websites = [];
+    useEffect(() => {
+        if (contextTypeWebsite.refreshCall === false) {
+            return;
+        }
+        setWebsitesFromDB(contextTypeWebsite.getWebsites());
+    }, [contextTypeWebsite.refreshCall])
 
-    if (window.matchMedia('(min-width: 575px)').matches) {
-        websites = props.globalWebsites.slice(0, 12);
-    } else {
-        websites = props.globalWebsites.slice(0, 6);
+    useEffect(() => {
+        if (contextTypeSelector.selectorState !== "dashboard" || contextTypeWebsite.initialCall === false) {
+            return;
+        }
+        setWebsitesFromDB(contextTypeWebsite.getWebsites());
+    }, [contextTypeSelector.selectorState])
+
+    useEffect(() => {
+        if (websitesFromDB === null || websitesFromDB.length === 0) {
+            return;
+        }
+        setWebsitesChange();
+    }, [websitesFromDB])
+
+    function setWebsitesChange() {
+        if (window.matchMedia('(min-width: 575px)').matches) {
+            setWebsites(contextTypeWebsite.getWebsites().slice(0, 12));
+        } else {
+            setWebsites(contextTypeWebsite.getWebsites().slice(0, 6));
+        }
     }
 
     return <div id="dashboard-website-shower">

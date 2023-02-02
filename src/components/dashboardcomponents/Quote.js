@@ -1,7 +1,11 @@
+import React from "react";
+import SelectorContext from "../../misc/SelectorContext";
+
 const Quote = (props) => {
+    const contextTypeSelector = React.useContext(SelectorContext);
 
     function changeSelectorStateToQuotes() {
-        props.changeSelectorState("quotes");
+        contextTypeSelector.setSelectorState("quotes")
     }
 
     const quote = props.dayQuote;

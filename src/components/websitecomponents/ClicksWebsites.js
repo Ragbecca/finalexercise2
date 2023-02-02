@@ -1,24 +1,43 @@
 import ClickWebsiteSingle from "./ClickWebsiteSingle";
+import React, { useState, useEffect } from "react";
+import WebsiteContext from "../../misc/WebsiteContext";
+import SelectorContext from "../../misc/SelectorContext";
 
 const ClicksWebsites = (props) => {
+    const contextTypeWebsite = React.useContext(WebsiteContext);
+    const contextTypeSelector = React.useContext(SelectorContext);
 
-    let sortedWebsites = [];
+    const [websitesSorted, setWebsitesSorted] = useState([]);
+    const [isChangeWebsites, setChangeWebsites] = useState(false);
 
-    function sortWebsites() {
-        if (props.globalWebsites.length > 4) {
-            sortedWebsites = props.globalWebsites.sort((a, b) => b.clicks - a.clicks).slice(0, 4);
+    useEffect(() => {
+        if (contextTypeWebsite.refreshCall === false) {
+            return;
+        }
+        setChangeWebsites(true);
+    }, [contextTypeWebsite.refreshCall]);
+
+    useEffect(() => {
+        if (contextTypeSelector.selectorState !== "websites" || contextTypeWebsite.initialCall === false) {
+            return;
+        }
+        setChangeWebsites(true);
+    }, [contextTypeSelector.selectorState, contextTypeWebsite.initialCall]);
+
+    if (isChangeWebsites) {
+        setChangeWebsites(false);
+        if (contextTypeWebsite.getWebsites().length > 4) {
+            setWebsitesSorted(contextTypeWebsite.getWebsites().sort((a, b) => b.clicks - a.clicks).slice(0, 4));
         } else {
-            sortedWebsites = props.globalWebsites.sort((a, b) => b.clicks - a.clicks);
+            setWebsitesSorted(contextTypeWebsite.getWebsites());
         }
     }
-
-    sortWebsites();
 
 
     return <div id="website-clicks">
         <h2 id="website-clicks-name">Most Clicks</h2>
         <div id="website-clicks-values">
-            {sortedWebsites.map(website => <ClickWebsiteSingle key={website.websiteID} id={website.websiteID} clicks={website.clicks} img={website.icon} name={website.name} link={website.url} refreshGlobalWebsites={props.refreshGlobalWebsites} />)}
+            {websitesSorted.map(website => <ClickWebsiteSingle key={website.websiteID} id={website.websiteID} clicks={website.clicks} img={website.icon} name={website.name} link={website.url} refreshGlobalWebsites={props.refreshGlobalWebsites} />)}
         </div>
     </div>
 }

@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import DeleteTaskPopup from '../popups/DeleteTaskPopup';
 import * as apiCalls from '../../api/apiCalls';
 import AuthContext from '../../misc/AuthContext';
+import TaskContext from '../../misc/TaskContext';
 
 const FinishedTask = (props) => {
     const contextType = React.useContext(AuthContext);
+    const contextTypeTasks = React.useContext(TaskContext);
     const [isOpen, setIsOpen] = useState(false);
 
     function togglePopUp() {
@@ -13,7 +15,7 @@ const FinishedTask = (props) => {
     }
 
     function changeStatusToUnChecked() {
-        apiCalls.changeStatusTaskToFalse(contextType.getUser(), props.id).then(props.refreshGlobalTasks(true));
+        apiCalls.changeStatusTaskToFalse(contextType.getUser(), props.id).finally(contextTypeTasks.setTasks("ragbecca"));
     }
 
     return <div className="finished-task">

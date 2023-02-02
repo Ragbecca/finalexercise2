@@ -4,12 +4,15 @@ import CategorySelector from "../misccomponents/CategorySelector";
 import ButtonWithProgress from "../misccomponents/ButtonWithProgress";
 import * as apiCalls from "../../api/apiCalls";
 import AuthContext from "../../misc/AuthContext";
+import TaskContext from "../../misc/TaskContext";
 
 const DeleteTaskPopup = props => {
     const contextType = React.useContext(AuthContext);
+    const contextTypeTasks = React.useContext(TaskContext);
 
     function onClickDeleteTask() {
-        apiCalls.deleteTask(contextType.getUser(), props.id).then(props.refreshGlobalTasks(true)).then(props.handleClose);
+        apiCalls.deleteTask(contextType.getUser(), props.id).then(props.handleClose)
+            .finally(contextTypeTasks.setTasks('ragbecca'));
     }
 
     return (

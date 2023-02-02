@@ -1,17 +1,37 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FinishedTask from "./FinishedTask";
+import TaskContext from "../../misc/TaskContext";
+import SelectorContext from "../../misc/SelectorContext";
 
 const FinishedTasks = (props) => {
-
+    const contextTypeTasks = React.useContext(TaskContext);
+    const contextTypeSelector = React.useContext(SelectorContext);
     const [tasks, setTasks] = useState([]);
+    const [isChangeTasks, setChangeTasks] = useState(false);
 
     useEffect(() => {
-        function findDoneTasks() {
-            const taskList = props.globalTasks.filter((x) => x.status === true);
-            setTasks(taskList);
+        if (contextTypeTasks.refreshCall === false) {
+            return;
         }
+        setChangeTasks(true);
+    }, [contextTypeTasks.refreshCall, contextTypeSelector.selectorState]);
+
+    useEffect(() => {
+        if (contextTypeSelector.selectorState !== "tasks" || contextTypeTasks.initialCall === false) {
+            return;
+        }
+        setChangeTasks(true);
+    }, [contextTypeSelector.selectorState, contextTypeTasks.initialCall]);
+
+    function findDoneTasks() {
+        const taskList = contextTypeTasks.getTasks().filter((x) => x.status === true);
+        setTasks(taskList);
+    }
+
+    if (isChangeTasks) {
+        setChangeTasks(false);
         findDoneTasks();
-    }, [props.globalTasks])
+    }
 
 
     return <div id="tasks-finished-shower">

@@ -7,19 +7,28 @@ import { AuthProvider } from '../misc/AuthContext';
 import PrivateRoute from '../components/PrivateRoute';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
+import { TaskProvider } from '../misc/TaskContext';
+import { SelectorProvider } from '../misc/SelectorContext';
+import { WebsiteProvider } from '../misc/WebsiteContext';
 
 
 function App() {
 
   return (
     <AuthProvider>
-      <Header />
-      <Routes>
-        <Route index exact element={<HomePage />} />
-        <Route path='/test' element={<PrivateRoute child={<TestPage />} />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/homepage' element={<PrivateRoute child={<MainPage />}></PrivateRoute>} />
-      </Routes>
+      <TaskProvider>
+        <WebsiteProvider>
+          <SelectorProvider>
+            <Header />
+            <Routes>
+              <Route index exact element={<HomePage />} />
+              <Route path='/test' element={<PrivateRoute child={<TestPage />} />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/homepage' element={<PrivateRoute child={<MainPage />}></PrivateRoute>} />
+            </Routes>
+          </SelectorProvider>
+        </WebsiteProvider>
+      </TaskProvider>
     </AuthProvider >
   );
 }

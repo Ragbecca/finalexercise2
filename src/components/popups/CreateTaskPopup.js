@@ -5,9 +5,11 @@ import CategorySelector from "../misccomponents/CategorySelector";
 import ButtonWithProgress from "../misccomponents/ButtonWithProgress";
 import AuthContext from "../../misc/AuthContext";
 import * as apiCalls from "../../api/apiCalls";
+import TaskContext from "../../misc/TaskContext";
 
 const CreateTaskPopup = props => {
     const contextType = React.useContext(AuthContext);
+    const contextTypeTasks = React.useContext(TaskContext);
 
     const [taskName, setTaskName] = useState('');
     const [category, setCategory] = useState();
@@ -30,7 +32,7 @@ const CreateTaskPopup = props => {
         setCategory(event);
     }
 
-    function onClickCreateTask() {
+    async function onClickCreateTask() {
         let body = {
             taskName: taskName,
             taskCategoryId: category,
@@ -43,7 +45,8 @@ const CreateTaskPopup = props => {
                 deadlineTime: deadlineTime
             }
         }
-        apiCalls.addTask(contextType.getUser(), body).then(props.refreshGlobalTasks(true)).then(props.handleClose);
+        await apiCalls.addTask(contextType.getUser(), body).then(props.handleClose)
+            .finally(contextTypeTasks.setTasks('ragbecca'));
     }
 
     let disableSubmit = false;
