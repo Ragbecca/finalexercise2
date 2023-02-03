@@ -14,7 +14,7 @@ const FinishedTasks = (props) => {
             return;
         }
         setChangeTasks(true);
-    }, [contextTypeTasks.refreshCall, contextTypeSelector.selectorState]);
+    }, [contextTypeTasks.refreshCall]);
 
     useEffect(() => {
         if (contextTypeSelector.selectorState !== "tasks" || contextTypeTasks.initialCall === false) {

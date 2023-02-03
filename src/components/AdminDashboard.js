@@ -7,8 +7,8 @@ const AdminDashboard = props => {
         <div id="dashboard-admin-grid">
             <UserList />
             <CategoryList refreshGlobalTasks={props.refreshGlobalTasks} />
-            <div>TEST3</div>
-            <div>TEST4</div>
+            <div></div>
+            <div></div>
         </div>
     </div>
 }

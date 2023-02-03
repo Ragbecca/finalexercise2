@@ -3,11 +3,13 @@ import ButtonWithProgress from "../misccomponents/ButtonWithProgress";
 import InputLabelTop from "../misccomponents/InputLabelTop";
 import * as apiCalls from "../../api/apiCalls";
 import AuthContext from "../../misc/AuthContext";
+import CategoryContext from "../../misc/CategoryContext";
 
 const CreateCategoryPopup = props => {
-    const [cName, setCName] = useState('');
-    const [pendingApiCall, setPendingApiCall] = useState(false);
     const contextType = React.useContext(AuthContext);
+    const contextTypeCategory = React.useContext(CategoryContext);
+
+    const [cName, setCName] = useState('');
 
     function onChangeCName(event) {
         setCName(event.target.value);
@@ -17,10 +19,8 @@ const CreateCategoryPopup = props => {
         let body = {
             categoryName: cName
         };
-        setPendingApiCall(true);
         apiCalls.addCategory(contextType.getUser(), body)
-            .then(setPendingApiCall(false))
-            .then(props.setRefreshCall(true))
+            .then(contextTypeCategory.setCategories(contextType.getUser().data.name))
             .then(props.handleClose)
     }
 
@@ -46,7 +46,6 @@ const CreateCategoryPopup = props => {
                 <div className="popup-line-5">
                     <ButtonWithProgress onClick={onClickCreateTask}
                         disabled={disableSubmit}
-                        pendingApiCall={pendingApiCall}
                         text="Add Category"
                         classes="create-task-button" />
                 </div>

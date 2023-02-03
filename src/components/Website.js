@@ -9,7 +9,7 @@ const Website = (props) => {
             <FavoriteWebsites globalWebsites={props.globalWebsites} refreshGlobalWebsites={props.refreshGlobalWebsites} />
             <div className="dashboard-2-big-segments">
                 <ClicksWebsites globalWebsites={props.globalWebsites} refreshGlobalWebsites={props.refreshGlobalWebsites} />
-                <Quote dayQuote={props.dayQuote} />
+                <Quote selectorOrigin="websites" />
             </div>
         </div>
     </div>

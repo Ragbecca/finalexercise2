@@ -25,14 +25,13 @@ const CreateWebsitePopup = props => {
         setWebsiteDescription(event.target.value);
     }
 
-    function onClickCreateTask() {
+    function onClickCreateWebsite() {
         let body = {
             websiteName: websiteName,
             url: websiteURL,
             description: websiteDescription,
             username: contextType.getUser().data.name
         };
-        console.log(body);
         apiCalls.addWebsite(contextType.getUser(), body).then(props.refreshGlobalWebsites(true)).then(props.handleClose);
     }
 
@@ -67,7 +66,7 @@ const CreateWebsitePopup = props => {
                 </div>
                 <div className="popup-line-4">Mandatory field<span className="red-color">*</span></div>
                 <div className="popup-line-5">
-                    <ButtonWithProgress onClick={onClickCreateTask}
+                    <ButtonWithProgress onClick={onClickCreateWebsite}
                         disabled={disableSubmit}
                         text="Add Website"
                         classes="create-task-button" />

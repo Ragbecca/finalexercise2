@@ -13,6 +13,7 @@ const Login = () => {
 
     const [isError, setError] = useState(false);
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [initialCall, setInitialCall] = useState(true);
@@ -30,32 +31,39 @@ const Login = () => {
         setPassword(event.target.value);
     }
 
-    function onClickLogin() {
-        if (!(username && password)) {
+    function onChangeEmail(event) {
+        setEmail(event.target.value);
+    }
+
+    function onClickSignUp() {
+        if (!(username && password && password)) {
             setError(true);
             return;
         }
-        apiCalls.authenticate(username, password)
-            .then(response => {
-                const { accessToken } = response.data;
-                const data = parseJwt(accessToken);
-                const user = { data, accessToken };
+        const body = {
+            username: username,
+            email: email,
+            password: password
+        }
+        apiCalls.signup(body).then(response => {
+            const { accessToken } = response.data;
+            const data = parseJwt(accessToken);
+            const user = { data, accessToken };
 
-                contextType.userLogin(user);
+            contextType.userLogin(user);
 
-                setError(false);
-                setLoggedIn(true);
-                setUsername('');
-                setPassword('');
-            })
-            .catch(error => {
-                handleLogError(error);
-                setError(true);
-            })
+            setError(false);
+            setLoggedIn(true);
+            setUsername('');
+            setPassword('');
+        }).catch(error => {
+            handleLogError(error);
+            setError(true);
+        })
     }
 
     let disableSubmit = false;
-    if (username === '' || password === '') {
+    if (username === '' || password === '' || email === '') {
         disableSubmit = true;
     }
 
@@ -72,6 +80,12 @@ const Login = () => {
                         classes="login-input"
                         value={username} onChange={onChangeUsername} />
                 </div>
+                <div className="login-input-label">Email</div>
+                <div className="">
+                    <Input placeholder="Your email"
+                        classes="login-input"
+                        value={email} onChange={onChangeEmail} />
+                </div>
                 <div className="login-input-label">Wachtwoord</div>
                 <div className="">
                     <Input placeholder="Your password" type="password"
@@ -80,17 +94,17 @@ const Login = () => {
                 </div>
                 <div>{isError && (
                     <div className="">
-                        <div className="login-alert" role="alert">...</div>
+                        <div className="login-alert" role="alert">This isn't good.</div>
                     </div>
                 )}</div>
                 <div className="login-button-middle">
-                    <ButtonWithProgress onClick={onClickLogin}
+                    <ButtonWithProgress onClick={onClickSignUp}
                         disabled={disableSubmit}
-                        text="Login"
+                        text="Signup"
                         classes="login-button" />
                 </div>
                 <div>
-                    <Link className="login-button-middle" to="/signup">Signup</Link>
+                    <Link className="login-button-middle" to="/login">Login</Link>
                 </div>
             </div>
         </div >

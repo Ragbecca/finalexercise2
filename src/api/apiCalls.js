@@ -1,10 +1,6 @@
 import axios from "axios";
 import { parseJwt } from "../misc/Helpers";
 
-export function testCall() {
-    return instance.get('/listHeaders');
-};
-
 export function authenticate(username, password) {
     return instance.post('/auth/login', { username, password }, {
         headers: { 'Content-type': 'application/json' }
@@ -75,6 +71,14 @@ export function getQuotesUser(user, username) {
     })
 }
 
+export function getQuoteTodayUser(user, username) {
+    return instance.get(`/api/quote/today/user/${username}`, {
+        headers: {
+            'Authorization': bearerAuth(user),
+        }
+    })
+}
+
 export function getUserInfo(user, username) {
     return instance.post(`/api/userinfo/info`, username, {
         headers: {
@@ -85,6 +89,22 @@ export function getUserInfo(user, username) {
 
 export function addTask(user, task) {
     return instance.post(`/api/tasks/add`, task, {
+        headers: {
+            'Authorization': bearerAuth(user)
+        }
+    })
+}
+
+export function editTask(user, task) {
+    return instance.post(`/api/tasks/edit`, task, {
+        headers: {
+            'Authorization': bearerAuth(user)
+        }
+    })
+}
+
+export function addQuote(user, quote) {
+    return instance.post(`/api/quote/add`, quote, {
         headers: {
             'Authorization': bearerAuth(user)
         }

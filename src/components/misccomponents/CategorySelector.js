@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import SelectSearch from 'react-select-search';
-import * as apiCalls from '../../api/apiCalls';
 import AuthContext from '../../misc/AuthContext';
+import CategoryContext from '../../misc/CategoryContext';
 
 const CategorySelector = (props) => {
-    const contextType = React.useContext(AuthContext);
+    const contextTypeCategory = React.useContext(CategoryContext);
 
     const [category, setCategory] = useState(props.currentValue);
     const [categories, setCategories] = useState([]);
     const [categoryOptions, setCategoryOptions] = useState([]);
-    const [initialCall, setInitialCall] = useState(true);
+    const [isChangeCategories, setChangeCategories] = useState(false);
 
-    if (initialCall) {
-        setInitialCall(false);
-        apiCalls.getTaskCategories(contextType.getUser()).then(results => {
-            setCategories(results.data)
-        })
+    useEffect(() => {
+        if (contextTypeCategory.refreshCall === false) {
+            return;
+        }
+        setChangeCategories(true);
+    }, [contextTypeCategory.refreshCall]);
+
+    if (isChangeCategories) {
+        setChangeCategories(false);
+        setCategories(contextTypeCategory.getCategories());
     }
 
     useEffect(() => {

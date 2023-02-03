@@ -3,42 +3,44 @@ import TaskDashboard from "./TaskDashboard";
 import { useState, useEffect } from "react";
 import Website from "./Website";
 import Quotes from "./Quotes";
-import quotesJSON from '../json/temp/QuoteTemp.json'
 import React from "react";
 import TaskContext from "../misc/TaskContext";
 import AdminDashboard from "./AdminDashboard";
 import SelectorContext from "../misc/SelectorContext";
 import WebsiteContext from "../misc/WebsiteContext";
+import QuoteContext from "../misc/QuoteContext";
+import AuthContext from "../misc/AuthContext";
+import CategoryContext from "../misc/CategoryContext";
 
 const Dashboard = () => {
+    const contextType = React.useContext(AuthContext);
     const contextTypeTasks = React.useContext(TaskContext);
     const contextTypeSelector = React.useContext(SelectorContext);
     const contextTypeWebsite = React.useContext(WebsiteContext);
+    const contextTypeQuote = React.useContext(QuoteContext);
+    const contextTypeCategories = React.useContext(CategoryContext);
 
     const [initialCall, setInitialCall] = useState(true);
-    const [dayQuote, setDayQuote] = useState();
 
     useEffect(() => { }, [contextTypeSelector.selectorState])
 
     if (initialCall) {
         setInitialCall(false);
-        contextTypeTasks.setTasks('ragbecca');
-        contextTypeWebsite.setWebsites('ragbecca');
-        function getRandomInt(max) {
-            return Math.floor(Math.random() * max);
-        }
-        const quote = quotesJSON[getRandomInt(quotesJSON.length)];
-        setDayQuote(quote)
+        contextTypeTasks.setTasks(contextType.getUser().data.name);
+        contextTypeWebsite.setWebsites(contextType.getUser().data.name);
+        contextTypeQuote.setQuotes(contextType.getUser().data.name);
+        contextTypeQuote.setQuoteToday(contextType.getUser().data.name);
+        contextTypeCategories.setCategories(contextType.getUser().data.name);
     }
 
     if (contextTypeSelector.selectorState === "dashboard") {
-        return <DashboardItem dayQuote={dayQuote} />
+        return <DashboardItem />
     } else if (contextTypeSelector.selectorState === "tasks") {
         return <TaskDashboard />
     } else if (contextTypeSelector.selectorState === "websites") {
-        return <Website dayQuote={dayQuote} />
+        return <Website />
     } else if (contextTypeSelector.selectorState === "quotes") {
-        return <Quotes dayQuote={dayQuote} />
+        return <Quotes />
     } else if (contextTypeSelector.selectorState === "admin") {
         return <AdminDashboard />
     } else {

@@ -10,6 +10,9 @@ import LoginPage from '../pages/LoginPage';
 import { TaskProvider } from '../misc/TaskContext';
 import { SelectorProvider } from '../misc/SelectorContext';
 import { WebsiteProvider } from '../misc/WebsiteContext';
+import { QuoteProvider } from '../misc/QuoteContext';
+import SignUpPage from '../pages/SignUpPage';
+import CategoryContext, { CategoryProvider } from '../misc/CategoryContext';
 
 
 function App() {
@@ -19,13 +22,18 @@ function App() {
       <TaskProvider>
         <WebsiteProvider>
           <SelectorProvider>
-            <Header />
-            <Routes>
-              <Route index exact element={<HomePage />} />
-              <Route path='/test' element={<PrivateRoute child={<TestPage />} />} />
-              <Route path='/login' element={<LoginPage />} />
-              <Route path='/homepage' element={<PrivateRoute child={<MainPage />}></PrivateRoute>} />
-            </Routes>
+            <QuoteProvider>
+              <CategoryProvider>
+                <Header />
+                <Routes>
+                  <Route index exact element={<HomePage />} />
+                  <Route path='/test' element={<PrivateRoute child={<TestPage />} />} />
+                  <Route path='/login' element={<LoginPage />} />
+                  <Route path='/signup' element={<SignUpPage />} />
+                  <Route path='/homepage' element={<PrivateRoute child={<MainPage />}></PrivateRoute>} />
+                </Routes>
+              </CategoryProvider>
+            </QuoteProvider>
           </SelectorProvider>
         </WebsiteProvider>
       </TaskProvider>

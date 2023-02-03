@@ -46,7 +46,7 @@ const CreateTaskPopup = props => {
             }
         }
         await apiCalls.addTask(contextType.getUser(), body).then(props.handleClose)
-            .finally(contextTypeTasks.setTasks('ragbecca'));
+            .finally(contextTypeTasks.setTasks(contextType.getUser().data.name));
     }
 
     let disableSubmit = false;

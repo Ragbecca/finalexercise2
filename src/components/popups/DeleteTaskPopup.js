@@ -12,7 +12,7 @@ const DeleteTaskPopup = props => {
 
     function onClickDeleteTask() {
         apiCalls.deleteTask(contextType.getUser(), props.id).then(props.handleClose)
-            .finally(contextTypeTasks.setTasks('ragbecca'));
+            .finally(contextTypeTasks.setTasks(contextType.getUser().data.name));
     }
 
     return (

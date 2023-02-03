@@ -50,7 +50,7 @@ const SingleTask = (props) => {
     }
 
     function changeStatusToChecked() {
-        apiCalls.changeStatusTaskToTrue(contextType.getUser(), props.id).then(contextTypeTasks.setTasks("ragbecca"));
+        apiCalls.changeStatusTaskToTrue(contextType.getUser(), props.id).then(contextTypeTasks.setTasks(contextType.getUser().data.name));
     }
 
     return <div className={"task-shower-task " + props.class}>
@@ -74,7 +74,7 @@ const SingleTask = (props) => {
                 <span className='checkmark'></span>
             </label>
         </div>
-        {isOpen && <EditTaskPopup id={props.id} handleClose={togglePopUp} taskName={props.name} categoryId={props.categoryId} deadlineDate={props.date} deadlineTime={props.time} />}
+        {isOpen && <EditTaskPopup id={props.id} handleClose={togglePopUp} taskName={props.name} category={props.categoryId} deadlineDate={props.date} deadlineTime={props.time} />}
     </div>
 }
 

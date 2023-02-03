@@ -15,7 +15,7 @@ const FinishedTask = (props) => {
     }
 
     function changeStatusToUnChecked() {
-        apiCalls.changeStatusTaskToFalse(contextType.getUser(), props.id).finally(contextTypeTasks.setTasks("ragbecca"));
+        apiCalls.changeStatusTaskToFalse(contextType.getUser(), props.id).finally(contextTypeTasks.setTasks(contextType.getUser().data.name));
     }
 
     return <div className="finished-task">

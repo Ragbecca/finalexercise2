@@ -1,30 +1,34 @@
-import * as apiCalls from '../../api/apiCalls';
-import React, { useState } from 'react';
-import AuthContext from '../../misc/AuthContext';
+import React, { useState, useEffect } from 'react';
 import SingleCategory from './SingleCategory';
 import CreateCategoryPopup from '../popups/CreateCategoryPopup';
+import CategoryContext from '../../misc/CategoryContext';
+import SelectorContext from '../../misc/SelectorContext';
 
-const CategoryList = props => {
-    const contextType = React.useContext(AuthContext);
+const CategoryList = () => {
+    const contextTypeCategory = React.useContext(CategoryContext);
+    const contextTypeSelector = React.useContext(SelectorContext);
 
     const [categories, setCategories] = useState([]);
-    const [refreshCall, setRefreshCall] = useState(true);
-    const [initialCall, setInitialCall] = useState(true);
+    const [isChangeCategories, setChangeCategories] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    if (refreshCall) {
-        setRefreshCall(false);
-        delayedRefreshCall();
-    }
+    useEffect(() => {
+        if (contextTypeCategory.refreshCall === false) {
+            return;
+        }
+        setChangeCategories(true);
+    }, [contextTypeCategory.refreshCall]);
 
-    async function delayedRefreshCall() {
-        await new Promise(resolve => setTimeout(resolve, 100));
-        apiCalls.getTaskCategories(contextType.getUser()).then(response => setCategories(response.data));
-    }
+    useEffect(() => {
+        if (contextTypeSelector.selectorState !== "admin" || contextTypeCategory.initialCall === false) {
+            return;
+        }
+        setChangeCategories(true);
+    }, [contextTypeSelector.selectorState, contextTypeCategory.initialCall]);
 
-    if (initialCall) {
-        setInitialCall(false);
-        apiCalls.getTaskCategories(contextType.getUser()).then(response => setCategories(response.data));
+    if (isChangeCategories) {
+        setChangeCategories(false);
+        setCategories(contextTypeCategory.getCategories());
     }
 
     function togglePopUp() {
@@ -35,11 +39,11 @@ const CategoryList = props => {
         <div className='admin-category-header'>All Categories</div>
         <div className='admin-category-scrollbar-outer'>
             <div className='admin-category-scrollbar'>
-                {categories.map(category => { return <SingleCategory key={category.id} id={category.id} name={category.categoryName} setRefreshCall={setRefreshCall} refreshGlobalTasks={props.refreshGlobalTasks} /> })}
+                {categories.map(category => { return <SingleCategory key={category.id} id={category.id} name={category.categoryName} /> })}
             </div>
         </div>
         <div className="add-category"><span className="icon" onClick={togglePopUp}>+<span className="icon-tooltip">Add a Task</span></span></div>
-        {isOpen && <CreateCategoryPopup handleClose={togglePopUp} setRefreshCall={setRefreshCall} />}
+        {isOpen && <CreateCategoryPopup handleClose={togglePopUp} />}
     </div>
 }
 

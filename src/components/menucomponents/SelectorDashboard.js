@@ -19,7 +19,6 @@ const SelectorDashboard = () => {
         </div>;
     } else {
         return <div id="menu-selector">
-            <Selector key="Logout" name="Logout" />
             {selectorList.map(value => {
                 return <Selector key={value} name={value} />
             })}

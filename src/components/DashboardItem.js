@@ -9,7 +9,7 @@ const DashboardItem = (props) => {
             <TaskContainer />
             <div className="dashboard-2-big-segments">
                 <WebsiteContainer />
-                <Quote dayQuote={props.dayQuote} />
+                <Quote selectorOrigin="dashboard" />
             </div>
         </div>
     </div>
