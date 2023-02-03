@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Input = (props) => {
+const Input = props => {
     let inputClassName = props.classes;
     if (props.type === 'file') {
         props.className += '-file';

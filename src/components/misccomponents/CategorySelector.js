@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import SelectSearch from 'react-select-search';
-import AuthContext from '../../misc/AuthContext';
 import CategoryContext from '../../misc/CategoryContext';
 
-const CategorySelector = (props) => {
+const CategorySelector = props => {
     const contextTypeCategory = React.useContext(CategoryContext);
 
     const [category, setCategory] = useState(props.currentValue);

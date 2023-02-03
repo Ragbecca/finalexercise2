@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputLabelTop = (props) => {
+const InputLabelTop = props => {
 
     let inputClassName = props.classes;
     if (props.type === 'file') {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SelectorContext from "../../misc/SelectorContext";
 import QuoteContext from "../../misc/QuoteContext";
 
-const QuoteComponent = (props) => {
+const QuoteComponent = () => {
     const contextTypeQuote = React.useContext(QuoteContext);
     const contextTypeSelector = React.useContext(SelectorContext);
 

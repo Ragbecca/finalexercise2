@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputLabelTextArea = (props) => {
+const InputLabelTextArea = props => {
 
     let inputClassName = props.classes;
     if (props.type === 'file') {

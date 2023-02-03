@@ -3,7 +3,7 @@ import SingleWebsite from "./SingleWebsite";
 import React, { useState, useEffect } from "react";
 import WebsiteContext from "../../misc/WebsiteContext";
 
-const WebsiteContainer = (props) => {
+const WebsiteContainer = props => {
     const contextTypeSelector = React.useContext(SelectorContext);
     const contextTypeWebsite = React.useContext(WebsiteContext);
 

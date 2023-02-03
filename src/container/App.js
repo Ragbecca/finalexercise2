@@ -12,7 +12,7 @@ import { SelectorProvider } from '../misc/SelectorContext';
 import { WebsiteProvider } from '../misc/WebsiteContext';
 import { QuoteProvider } from '../misc/QuoteContext';
 import SignUpPage from '../pages/SignUpPage';
-import CategoryContext, { CategoryProvider } from '../misc/CategoryContext';
+import { CategoryProvider } from '../misc/CategoryContext';
 
 
 function App() {

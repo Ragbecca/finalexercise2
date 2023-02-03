@@ -7,7 +7,7 @@ import React from 'react';
 import * as apiCalls from '../../api/apiCalls';
 import TaskContext from '../../misc/TaskContext';
 
-const SingleTask = (props) => {
+const SingleTask = props => {
     const contextType = React.useContext(AuthContext);
     const contextTypeTasks = React.useContext(TaskContext);
 

@@ -2,7 +2,7 @@ import * as apiCalls from "../../api/apiCalls";
 import AuthContext from "../../misc/AuthContext";
 import React from "react";
 
-const SingleWebsite = (props) => {
+const SingleWebsite = props => {
     const contextType = React.useContext(AuthContext);
 
     function openWebsite() {

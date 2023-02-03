@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SelectorContext from "../../misc/SelectorContext";
 import TaskContext from "../../misc/TaskContext";
 
-const ProgressTasks = (props) => {
+const ProgressTasks = () => {
     const contextTypeTasks = React.useContext(TaskContext);
     const contextTypeSelector = React.useContext(SelectorContext);
 

@@ -4,7 +4,7 @@ import AuthContext from '../../misc/AuthContext';
 import DeleteCategoryPopup from '../popups/DeleteCategoryPopup';
 
 
-const SingleCategory = (props) => {
+const SingleCategory = props => {
     const contextType = React.useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
 

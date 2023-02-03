@@ -1,7 +1,7 @@
 import React from "react";
 import AuthContext from "../../misc/AuthContext";
 
-const SelectorSingle = (props) => {
+const SelectorSingle = props => {
 
     const contextType = React.useContext(AuthContext);
 

@@ -10,7 +10,7 @@ import { ReactComponent as CategoryLogo } from '../../img/category.svg'
 import SelectorSingle from './SelectorSingle';
 import LogoutSelector from './LogoutSelector';
 
-const Selector = (props) => {
+const Selector = props => {
 
     const selectorimgClass = "selector-image"
 

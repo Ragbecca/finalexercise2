@@ -4,7 +4,7 @@ import CreateTaskPopup from "../popups/CreateTaskPopup";
 import TaskContext from "../../misc/TaskContext";
 import SelectorContext from "../../misc/SelectorContext";
 
-const TaskContainer = (props) => {
+const TaskContainer = () => {
     const contextTypeTasks = React.useContext(TaskContext);
     const contextTypeSelector = React.useContext(SelectorContext);
 

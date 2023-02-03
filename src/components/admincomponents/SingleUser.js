@@ -1,4 +1,4 @@
-const SingleUser = (props) => {
+const SingleUser = props => {
     return <div>{props.username}</div>
 }
 
