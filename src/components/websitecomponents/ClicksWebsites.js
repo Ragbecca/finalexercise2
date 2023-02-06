@@ -2,6 +2,7 @@ import ClickWebsiteSingle from "./ClickWebsiteSingle";
 import React, { useState, useEffect } from "react";
 import WebsiteContext from "../../misc/WebsiteContext";
 import SelectorContext from "../../misc/SelectorContext";
+import { websitesLocation } from "../../misc/ConstantValues";
 
 const ClicksWebsites = (props) => {
     const contextTypeWebsite = React.useContext(WebsiteContext);
@@ -18,7 +19,7 @@ const ClicksWebsites = (props) => {
     }, [contextTypeWebsite.refreshCall]);
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "websites" || contextTypeWebsite.initialCall === false) {
+        if (contextTypeSelector.selectorState !== websitesLocation || contextTypeWebsite.initialCall === false) {
             return;
         }
         setChangeWebsites(true);
@@ -27,7 +28,8 @@ const ClicksWebsites = (props) => {
     if (isChangeWebsites) {
         setChangeWebsites(false);
         if (contextTypeWebsite.getWebsites().length > 4) {
-            setWebsitesSorted(contextTypeWebsite.getWebsites().sort((a, b) => b.clicks - a.clicks).slice(0, 4));
+            setWebsitesSorted(contextTypeWebsite.getWebsites()
+                .sort((a, b) => b.clicks - a.clicks).slice(0, 4));
         } else {
             setWebsitesSorted(contextTypeWebsite.getWebsites());
         }
@@ -37,7 +39,7 @@ const ClicksWebsites = (props) => {
     return <div id="website-clicks">
         <h2 id="website-clicks-name">Most Clicks</h2>
         <div id="website-clicks-values">
-            {websitesSorted.map(website => <ClickWebsiteSingle key={website.websiteID} id={website.websiteID} clicks={website.clicks} img={website.icon} name={website.name} link={website.url} refreshGlobalWebsites={props.refreshGlobalWebsites} />)}
+            {websitesSorted.map(website => <ClickWebsiteSingle key={website.websiteID} id={website.websiteID} clicks={website.clicks} img={website.icon} name={website.name} link={website.url} />)}
         </div>
     </div>
 }

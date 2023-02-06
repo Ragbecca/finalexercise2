@@ -3,6 +3,7 @@ import SingleTask from "./SingleTask";
 import CreateTaskPopup from "../popups/CreateTaskPopup";
 import TaskContext from "../../misc/TaskContext";
 import SelectorContext from "../../misc/SelectorContext";
+import { dashboard, dashboardLocation, tasksLocation } from "../../misc/ConstantValues";
 
 const TaskContainer = () => {
     const contextTypeTasks = React.useContext(TaskContext);
@@ -20,11 +21,22 @@ const TaskContainer = () => {
     }, [contextTypeTasks.refreshCall]);
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "dashboard" || contextTypeTasks.initialCall === false) {
+        if (contextTypeSelector.selectorState !== dashboardLocation || contextTypeTasks.initialCall === false) {
             return;
         }
         setChangeTasks(true);
     }, [contextTypeSelector.selectorState]);
+
+    const dateStringToDate = (date, time) => new Date(date.split("T")[0] + "T" + time);
+
+    const sortOnDeadLine = (a, b) => {
+        if (a.deadlineDate === null) {
+            if (b.deadlineDate === null) return a.taskName.localeCompare(b.taskName);
+            else return 1;
+        }
+        if (b.deadlineDate === null) return -1;
+        return dateStringToDate(a.deadlineDate, a.deadlineTime) - dateStringToDate(b.deadlineDate, b.deadlineTime);
+    }
 
     if (isChangeTasks) {
         setChangeTasks(false);
@@ -32,29 +44,8 @@ const TaskContainer = () => {
     }
 
     function findThreeTasksClosestBy() {
-        let newTaskList = [];
-        let taskList = [];
-        contextTypeTasks.getTasks().filter(t => !t.status).forEach(t => {
-            if (t.deadlineDate !== null) {
-                taskList.push({
-                    "id": t.id,
-                    "date": new Date(t.deadlineDate.split("T")[0] + "T" + t.deadlineTime)
-                });
-            } else {
-                taskList.push({
-                    "id": t.id,
-                    "date": undefined
-                });
-            }
-        });
-        taskList = taskList.sort(function (a, b) {
-            if (a.date === undefined) return 1;
-            if (b.date === undefined) return -1;
-            return a.date - b.date;
-        }).slice(0, 3);
-
-        taskList.map(t => newTaskList.push(contextTypeTasks.getTasks().find(task => task.id === t.id)));
-        setTasks(newTaskList);
+        const taskList = contextTypeTasks.getTasks().filter(t => !t.status).sort(sortOnDeadLine).slice(0, 3);
+        setTasks(taskList);
     }
 
     function togglePopUp() {
@@ -62,7 +53,7 @@ const TaskContainer = () => {
     }
 
     function changeSelectorStateToTasks() {
-        contextTypeSelector.setSelectorState("tasks")
+        contextTypeSelector.setSelectorState(tasksLocation);
     }
 
 
@@ -72,7 +63,7 @@ const TaskContainer = () => {
             <div className="clickable-link" onClick={changeSelectorStateToTasks}>See all</div>
         </div>
         {tasks.map((task) => {
-            return <SingleTask key={task.id} id={task.id} name={task.taskName} categoryId={task.taskCategory.id} category={task.taskCategory.categoryName} time={task.deadlineTime} date={task.deadlineDate} />
+            return <SingleTask key={task.id} id={task.id} name={task.taskName} categoryId={task.taskCategory.id} category={task.taskCategory.categoryName} time={task.deadlineTime} date={task.deadlineDate} selectorOrigin={dashboardLocation} />
         })}
         <div className="add-task"><span className="icon" onClick={togglePopUp}>+<span className="icon-tooltip">Add a Task</span></span></div>
         {isOpen && <CreateTaskPopup handleClose={togglePopUp} />}

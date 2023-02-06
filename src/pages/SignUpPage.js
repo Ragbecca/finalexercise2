@@ -1,8 +1,5 @@
 import SignUp from "../components/Signup";
 
-const SignUpPage = () => {
-
-    return <SignUp />
-}
+const SignUpPage = () => <SignUp />
 
 export default SignUpPage;

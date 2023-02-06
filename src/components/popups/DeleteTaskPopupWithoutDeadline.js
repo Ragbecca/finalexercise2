@@ -7,7 +7,7 @@ import AuthContext from "../../misc/AuthContext";
 import TaskContext from "../../misc/TaskContext";
 import { tasksLocation } from "../../misc/ConstantValues";
 
-const DeleteTaskPopup = props => {
+const DeleteTaskPopupWithoutDeadline = props => {
     const contextType = React.useContext(AuthContext);
     const contextTypeTasks = React.useContext(TaskContext);
 
@@ -33,11 +33,9 @@ const DeleteTaskPopup = props => {
                 </div>
                 <div className="popup-line-3">
                     <InputLabelTop label="Deadline date"
-                        type="date"
-                        value={props.deadlineDate.split("T")[0]} disabled={true} />
+                        type="date" disabled={true} />
                     <InputLabelTop label="Deadline time"
-                        type="time"
-                        value={props.deadlineTime} disabled={true} />
+                        type="time" disabled={true} />
                 </div>
                 <div className="popup-line-5">
                     <ButtonWithProgress onClick={onClickDeleteTask}
@@ -49,4 +47,4 @@ const DeleteTaskPopup = props => {
     );
 };
 
-export default DeleteTaskPopup;
+export default DeleteTaskPopupWithoutDeadline;

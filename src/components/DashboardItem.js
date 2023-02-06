@@ -1,3 +1,4 @@
+import { dashboardLocation } from "../misc/ConstantValues";
 import Quote from "./dashboardcomponents/Quote";
 import TaskContainer from "./dashboardcomponents/TaskContainer";
 import WebsiteContainer from "./dashboardcomponents/WebsiteContainer";
@@ -9,7 +10,7 @@ const DashboardItem = (props) => {
             <TaskContainer />
             <div className="dashboard-2-big-segments">
                 <WebsiteContainer />
-                <Quote selectorOrigin="dashboard" />
+                <Quote selectorOrigin={dashboardLocation} />
             </div>
         </div>
     </div>

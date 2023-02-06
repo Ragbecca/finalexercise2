@@ -1,14 +1,16 @@
 import * as apiCalls from '../../api/apiCalls';
 import React from 'react';
 import AuthContext from '../../misc/AuthContext';
+import WebsiteContext from '../../misc/WebsiteContext';
 
 const WebsiteSingle = (props) => {
+    const contextTypeWebsite = React.useContext(WebsiteContext);
     const contextType = React.useContext(AuthContext);
 
     function openWebsite() {
         const url = "http://" + props.link;
         window.open(url);
-        apiCalls.addClickToWebsite(contextType.getUser(), props.id).then(props.refreshGlobalWebsites(true));
+        apiCalls.addClickToWebsite(contextType.getUser(), props.id).then(contextTypeWebsite.setWebsites(contextType.getUser().data.name));
     }
 
     return <div onClick={openWebsite} className="websites-website">

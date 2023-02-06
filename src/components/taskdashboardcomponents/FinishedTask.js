@@ -4,6 +4,7 @@ import DeleteTaskPopup from '../popups/DeleteTaskPopup';
 import * as apiCalls from '../../api/apiCalls';
 import AuthContext from '../../misc/AuthContext';
 import TaskContext from '../../misc/TaskContext';
+import DeleteTaskPopupWithoutDeadline from '../popups/DeleteTaskPopupWithoutDeadline';
 
 const FinishedTask = (props) => {
     const contextType = React.useContext(AuthContext);
@@ -30,7 +31,8 @@ const FinishedTask = (props) => {
                 <span className='checkmark'></span>
             </label>
         </div>
-        {isOpen && <DeleteTaskPopup handleClose={togglePopUp} id={props.id} taskName={props.name} category={props.categoryId} deadlineDate={props.deadlineDate} deadlineTime={props.deadlineTime} refreshGlobalTasks={props.refreshGlobalTasks} />}
+        {isOpen && props.deadlineDate !== null && <DeleteTaskPopup handleClose={togglePopUp} id={props.id} taskName={props.name} category={props.categoryId} deadlineDate={props.deadlineDate} deadlineTime={props.deadlineTime} />}
+        {isOpen && props.deadlineDate === null && <DeleteTaskPopupWithoutDeadline handleClose={togglePopUp} id={props.id} taskName={props.name} category={props.categoryId} deadlineDate={props.deadlineDate} deadlineTime={props.deadlineTime} />}
     </div>
 }
 

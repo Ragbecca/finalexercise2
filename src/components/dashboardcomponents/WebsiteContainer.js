@@ -2,6 +2,7 @@ import SelectorContext from "../../misc/SelectorContext";
 import SingleWebsite from "./SingleWebsite";
 import React, { useState, useEffect } from "react";
 import WebsiteContext from "../../misc/WebsiteContext";
+import { dashboardLocation, websitesLocation } from "../../misc/ConstantValues";
 
 const WebsiteContainer = props => {
     const contextTypeSelector = React.useContext(SelectorContext);
@@ -11,7 +12,7 @@ const WebsiteContainer = props => {
     const [websites, setWebsites] = useState([]);
 
     function changeSelectorStateToWebsites() {
-        contextTypeSelector.setSelectorState("websites");
+        contextTypeSelector.setSelectorState(websitesLocation);
     }
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const WebsiteContainer = props => {
     }, [contextTypeWebsite.refreshCall])
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "dashboard" || contextTypeWebsite.initialCall === false) {
+        if (contextTypeSelector.selectorState !== dashboardLocation || contextTypeWebsite.initialCall === false) {
             return;
         }
         setWebsitesFromDB(contextTypeWebsite.getWebsites());
@@ -50,7 +51,7 @@ const WebsiteContainer = props => {
         </div>
         <div id="dashboard-website-shower-grid">
             {websites.map(website => {
-                return <SingleWebsite img={website.icon} id={website.websiteID} key={website.websiteID} name={website.name} link={website.url} refreshGlobalWebsites={props.refreshGlobalWebsites} />
+                return <SingleWebsite img={website.icon} id={website.websiteID} key={website.websiteID} name={website.name} link={website.url} />
             })}
         </div>
     </div>

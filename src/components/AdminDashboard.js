@@ -6,7 +6,7 @@ const AdminDashboard = props => {
         <div id="dashboard-name"><h1 id="dashboard-name-h1">Admin Panel</h1></div>
         <div id="dashboard-admin-grid">
             <UserList />
-            <CategoryList refreshGlobalTasks={props.refreshGlobalTasks} />
+            <CategoryList />
             <div></div>
             <div></div>
         </div>

@@ -3,6 +3,7 @@ import CreateQuotePopup from '../popups/CreateQuotePopup';
 import React, { useState, useEffect } from 'react';
 import SelectorContext from '../../misc/SelectorContext';
 import QuoteContext from '../../misc/QuoteContext';
+import { quotesLocation } from '../../misc/ConstantValues';
 
 const QuoteList = () => {
     const contextTypeQuote = React.useContext(QuoteContext);
@@ -21,7 +22,7 @@ const QuoteList = () => {
     }, [contextTypeQuote.refreshCall]);
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "quotes" || contextTypeQuote.initialCall === false) {
+        if (contextTypeSelector.selectorState !== quotesLocation || contextTypeQuote.initialCall === false) {
             return;
         }
         setChangeQuotes(true);
@@ -39,10 +40,10 @@ const QuoteList = () => {
     return <div id="quotes-list">
         <div><h2 id="quotes-list-header-name">My Quotes</h2></div>
         <div id="quotes-list-quote">
-            {quotes !== undefined && quotes.length > 0 && quotes.map(quote => <QuoteListSingle key={quote.id} quote={quote.quote} author={quote.author} />)}
+            {quotes !== undefined && quotes.length > 0 && quotes.map(quote => <QuoteListSingle key={quote.id} id={quote.id} quote={quote.quote} author={quote.author} />)}
             {quotes !== undefined && quotes.length === 0 && <div>This uses doesn't have any quotes yet</div>}
         </div>
-        <div className="add-task"><span className="icon" onClick={togglePopUp}>+<span className="icon-tooltip">Add a Task</span></span></div>
+        <div className="add-quote"><span className="icon" onClick={togglePopUp}>+<span className="icon-tooltip">Add a Quote</span></span></div>
         {isOpen && <CreateQuotePopup handleClose={togglePopUp} />}
     </div>
 }

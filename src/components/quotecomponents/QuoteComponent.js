@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SelectorContext from "../../misc/SelectorContext";
 import QuoteContext from "../../misc/QuoteContext";
+import { quotesLocation } from "../../misc/ConstantValues";
 
 const QuoteComponent = () => {
     const contextTypeQuote = React.useContext(QuoteContext);
@@ -17,7 +18,7 @@ const QuoteComponent = () => {
     }, [contextTypeQuote.refreshCall]);
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "quotes" || contextTypeQuote.initialCall === false) {
+        if (contextTypeSelector.selectorState !== quotesLocation || contextTypeQuote.initialCall === false) {
             return;
         }
         setChangeQuote(true);

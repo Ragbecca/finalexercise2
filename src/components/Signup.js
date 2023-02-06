@@ -86,7 +86,7 @@ const Login = () => {
                         classes="login-input"
                         value={email} onChange={onChangeEmail} />
                 </div>
-                <div className="login-input-label">Wachtwoord</div>
+                <div className="login-input-label">Password</div>
                 <div className="">
                     <Input placeholder="Your password" type="password"
                         classes="login-input"

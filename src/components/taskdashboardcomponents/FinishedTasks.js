@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FinishedTask from "./FinishedTask";
 import TaskContext from "../../misc/TaskContext";
 import SelectorContext from "../../misc/SelectorContext";
+import { tasksLocation } from "../../misc/ConstantValues";
 
 const FinishedTasks = (props) => {
     const contextTypeTasks = React.useContext(TaskContext);
@@ -17,7 +18,7 @@ const FinishedTasks = (props) => {
     }, [contextTypeTasks.refreshCall]);
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "tasks" || contextTypeTasks.initialCall === false) {
+        if (contextTypeSelector.selectorState !== tasksLocation || contextTypeTasks.initialCall === false) {
             return;
         }
         setChangeTasks(true);
@@ -37,7 +38,7 @@ const FinishedTasks = (props) => {
     return <div id="tasks-finished-shower">
         <div><h2 id="task-finished-header-name">Finished Tasks</h2></div>
         <div id="tasks-finished-scrollbar">
-            {tasks.map(task => <FinishedTask id={task.id} name={task.taskName} categoryId={task.taskCategory.id} category={task.taskCategory.categoryName} key={task.id} deadlineDate={task.deadlineDate} deadlineTime={task.deadlineTime} refreshGlobalTasks={props.refreshGlobalTasks} />)}
+            {tasks.map(task => <FinishedTask id={task.id} name={task.taskName} categoryId={task.taskCategory.id} category={task.taskCategory.categoryName} key={task.id} deadlineDate={task.deadlineDate} deadlineTime={task.deadlineTime} />)}
         </div>
     </div>
 }

@@ -11,6 +11,7 @@ import WebsiteContext from "../misc/WebsiteContext";
 import QuoteContext from "../misc/QuoteContext";
 import AuthContext from "../misc/AuthContext";
 import CategoryContext from "../misc/CategoryContext";
+import { adminLocation, dashboardLocation, quotesLocation, tasksLocation, websitesLocation } from "../misc/ConstantValues";
 
 const Dashboard = () => {
     const contextType = React.useContext(AuthContext);
@@ -33,15 +34,15 @@ const Dashboard = () => {
         contextTypeCategories.setCategories(contextType.getUser().data.name);
     }
 
-    if (contextTypeSelector.selectorState === "dashboard") {
+    if (contextTypeSelector.selectorState === dashboardLocation) {
         return <DashboardItem />
-    } else if (contextTypeSelector.selectorState === "tasks") {
+    } else if (contextTypeSelector.selectorState === tasksLocation) {
         return <TaskDashboard />
-    } else if (contextTypeSelector.selectorState === "websites") {
+    } else if (contextTypeSelector.selectorState === websitesLocation) {
         return <Website />
-    } else if (contextTypeSelector.selectorState === "quotes") {
+    } else if (contextTypeSelector.selectorState === quotesLocation) {
         return <Quotes />
-    } else if (contextTypeSelector.selectorState === "admin") {
+    } else if (contextTypeSelector.selectorState === adminLocation) {
         return <AdminDashboard />
     } else {
         return <div id="dashboard" className="test">

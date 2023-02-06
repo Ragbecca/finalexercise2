@@ -5,9 +5,11 @@ import ButtonWithProgress from "../misccomponents/ButtonWithProgress";
 import InputLabelTextArea from "../misccomponents/InputLabelTextArea";
 import AuthContext from "../../misc/AuthContext";
 import * as apiCalls from "../../api/apiCalls";
+import WebsiteContext from "../../misc/WebsiteContext";
 
 const CreateWebsitePopup = props => {
     const contextType = React.useContext(AuthContext);
+    const contextTypeWebsite = React.useContext(WebsiteContext);
 
     const [websiteName, setWebsiteName] = useState('');
     const [websiteURL, setWebsiteURL] = useState('');
@@ -32,7 +34,7 @@ const CreateWebsitePopup = props => {
             description: websiteDescription,
             username: contextType.getUser().data.name
         };
-        apiCalls.addWebsite(contextType.getUser(), body).then(props.refreshGlobalWebsites(true)).then(props.handleClose);
+        apiCalls.addWebsite(contextType.getUser(), body).then(contextTypeWebsite.setWebsites(contextType.getUser().data.name)).then(props.handleClose);
     }
 
     let disableSubmit = false;
@@ -44,7 +46,7 @@ const CreateWebsitePopup = props => {
         <div className="popup-box">
             <div className="box">
                 <div className="popup-header">
-                    <div>Add a Task</div>
+                    <div>Add a Website</div>
                     <div className="close-icon" onClick={props.handleClose}>X</div>
                 </div>
                 <div className="popup-line-1">

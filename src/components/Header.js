@@ -14,7 +14,7 @@ const Header = () => {
                 month: 'short',
                 year: 'numeric',
             })
-        } {dateState.toLocaleString('en-US', {
+        } {dateState.toLocaleString('en-GB', {
             hour: 'numeric',
             minute: 'numeric',
             hour12: false,

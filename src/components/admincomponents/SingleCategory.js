@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import * as apiCalls from '../../api/apiCalls'
 import AuthContext from '../../misc/AuthContext';
+import CategoryContext from '../../misc/CategoryContext';
+import TaskContext from '../../misc/TaskContext';
 import DeleteCategoryPopup from '../popups/DeleteCategoryPopup';
 
 
 const SingleCategory = props => {
     const contextType = React.useContext(AuthContext);
+    const contextTypeCategory = React.useContext(CategoryContext);
+    const contextTypeTasks = React.useContext(TaskContext);
+
     const [isOpen, setIsOpen] = useState(false);
 
     function deleteFromDB() {
         setIsOpen(false);
-        props.refreshGlobalTasks(true);
-        apiCalls.deleteCategory(contextType.getUser(), props.id).then(props.setRefreshCall(true));
+        apiCalls.deleteCategory(contextType.getUser(), props.id).then(contextTypeCategory.setCategories()).then(contextTypeTasks.setTasks(contextType.getUser().data.name));
     }
 
     function togglePopUp() {

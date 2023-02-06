@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import SelectSearch from 'react-select-search';
 import CategoryContext from '../../misc/CategoryContext';
+import SelectorContext from '../../misc/SelectorContext';
 
 const CategorySelector = props => {
     const contextTypeCategory = React.useContext(CategoryContext);
+    const contextTypeSelector = React.useContext(SelectorContext);
 
     const [category, setCategory] = useState(props.currentValue);
-    const [categories, setCategories] = useState([]);
     const [categoryOptions, setCategoryOptions] = useState([]);
     const [isChangeCategories, setChangeCategories] = useState(false);
 
@@ -17,35 +18,24 @@ const CategorySelector = props => {
         setChangeCategories(true);
     }, [contextTypeCategory.refreshCall]);
 
+    useEffect(() => {
+        if (contextTypeSelector.selectorState !== props.selectorOrigin || contextTypeCategory.initialCall === false) {
+            return;
+        }
+        setChangeCategories(true);
+    }, [contextTypeSelector.selectorState, contextTypeCategory.initialCall])
+
     if (isChangeCategories) {
         setChangeCategories(false);
-        setCategories(contextTypeCategory.getCategories());
+        const tempCategories = contextTypeCategory.getCategories()
+            .map(c => ({ "name": c.categoryName, "value": c.id }))
+            .sort((a, b) => a.name.localeCompare(b.name));
+        setCategoryOptions(tempCategories);
     }
 
     useEffect(() => {
         props.onChange(category);
     }, [category]);
-
-    useEffect(() => {
-        if (categories.length === 0) {
-            return;
-        } else {
-            let tempCategories = [];
-            categories.forEach(singleCategory => {
-                const tempCategory = { "name": singleCategory.categoryName, "value": singleCategory.id };
-                tempCategories.push(tempCategory);
-            })
-            tempCategories.sort(function (a, b) {
-                if (a.name > b.name) {
-                    return 1;
-                } else if (a.name < b.name) {
-                    return -1;
-                }
-                return 0;
-            });
-            setCategoryOptions(tempCategories);
-        }
-    }, [categories]);
 
     return (
         <SelectSearch options={categoryOptions} value={category} onChange={setCategory} name="category" placeholder="Search a category *" search />

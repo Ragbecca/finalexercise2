@@ -6,14 +6,15 @@ import AuthContext from '../../misc/AuthContext';
 import React from 'react';
 import * as apiCalls from '../../api/apiCalls';
 import TaskContext from '../../misc/TaskContext';
+import EditTaskPopupWithoutDeadline from '../popups/EditTaskPopupWithoutDeadline';
 
 const SingleTask = props => {
     const contextType = React.useContext(AuthContext);
     const contextTypeTasks = React.useContext(TaskContext);
 
     let difficultyColorCode = "#000000";
-    const oneDayInMs = 86400000;
-    const oneHourInMs = 3600000;
+    const oneDayInMs = 86_400_000;
+    const oneHourInMs = 3_600_000;
     let deadlineMoment = "";
     const now = Date.now();
     let date = undefined;
@@ -74,7 +75,8 @@ const SingleTask = props => {
                 <span className='checkmark'></span>
             </label>
         </div>
-        {isOpen && <EditTaskPopup id={props.id} handleClose={togglePopUp} taskName={props.name} category={props.categoryId} deadlineDate={props.date} deadlineTime={props.time} />}
+        {isOpen && props.deadlineDate !== undefined && <EditTaskPopup id={props.id} handleClose={togglePopUp} taskName={props.name} category={props.categoryId} deadlineDate={props.date} deadlineTime={props.time} selectorOrigin={props.selectorOrigin} />}
+        {isOpen && props.deadlineDate === undefined && <EditTaskPopupWithoutDeadline id={props.id} handleClose={togglePopUp} taskName={props.name} category={props.categoryId} selectorOrigin={props.selectorOrigin} />}
     </div>
 }
 

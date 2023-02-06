@@ -3,6 +3,7 @@ import SingleCategory from './SingleCategory';
 import CreateCategoryPopup from '../popups/CreateCategoryPopup';
 import CategoryContext from '../../misc/CategoryContext';
 import SelectorContext from '../../misc/SelectorContext';
+import { adminLocation } from '../../misc/ConstantValues';
 
 const CategoryList = () => {
     const contextTypeCategory = React.useContext(CategoryContext);
@@ -20,7 +21,7 @@ const CategoryList = () => {
     }, [contextTypeCategory.refreshCall]);
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "admin" || contextTypeCategory.initialCall === false) {
+        if (contextTypeSelector.selectorState !== adminLocation || contextTypeCategory.initialCall === false) {
             return;
         }
         setChangeCategories(true);

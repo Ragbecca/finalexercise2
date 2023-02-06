@@ -14,13 +14,7 @@ const Login = () => {
     const [isError, setError] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoggedIn, setLoggedIn] = useState(false);
-    const [initialCall, setInitialCall] = useState(true);
-
-    if (initialCall) {
-        setInitialCall(false);
-        setLoggedIn(contextType.userIsAuthenticated());
-    }
+    const [isLoggedIn, setLoggedIn] = useState(contextType.userIsAuthenticated());
 
     function onChangeUsername(event) {
         setUsername(event.target.value);
@@ -54,10 +48,7 @@ const Login = () => {
             })
     }
 
-    let disableSubmit = false;
-    if (username === '' || password === '') {
-        disableSubmit = true;
-    }
+    const disableSubmit = (username === '' || password === '');
 
     if (isLoggedIn) {
         return <Navigate to="/homepage" replace></Navigate>;
@@ -72,7 +63,7 @@ const Login = () => {
                         classes="login-input"
                         value={username} onChange={onChangeUsername} />
                 </div>
-                <div className="login-input-label">Wachtwoord</div>
+                <div className="login-input-label">Password</div>
                 <div className="">
                     <Input placeholder="Your password" type="password"
                         classes="login-input"

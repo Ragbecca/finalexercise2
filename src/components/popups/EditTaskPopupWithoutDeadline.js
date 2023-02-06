@@ -7,14 +7,14 @@ import AuthContext from "../../misc/AuthContext";
 import * as apiCalls from "../../api/apiCalls";
 import TaskContext from "../../misc/TaskContext";
 
-const CreateTaskPopup = props => {
+const EditTaskPopupWithoutDeadline = props => {
     const contextType = React.useContext(AuthContext);
     const contextTypeTasks = React.useContext(TaskContext);
 
-    const [taskName, setTaskName] = useState('');
-    const [category, setCategory] = useState();
-    const [deadlineDate, setDeadlineDate] = useState('');
-    const [deadlineTime, setDeadlineTime] = useState('');
+    const [taskName, setTaskName] = useState(props.taskName);
+    const [category, setCategory] = useState(props.category);
+    const [deadlineDate, setDeadlineDate] = useState(0);
+    const [deadlineTime, setDeadlineTime] = useState(0);
 
     function onChangeName(event) {
         setTaskName(event.target.value);
@@ -32,25 +32,35 @@ const CreateTaskPopup = props => {
         setCategory(event);
     }
 
-    async function onClickCreateTask() {
-        let body = {
+    async function onClickEditTask() {
+        let body = {};
+        body = {
+            id: props.id,
+            username: contextType.getUser().data.name,
             taskName: taskName,
             taskCategoryId: category,
-            username: contextType.getUser().data.name
-        };
-        if (deadlineDate !== '' && deadlineTime !== '') {
-            body = {
-                ...body,
-                deadlineDate: deadlineDate,
-                deadlineTime: deadlineTime
+        }
+        if (deadlineDate !== '') {
+            if (deadlineTime !== '') {
+                body = {
+                    ...body,
+                    deadlineDate: deadlineDate,
+                    deadlineTime: deadlineTime
+                }
+            } else {
+                body = {
+                    ...body,
+                    deadlineDate: deadlineDate,
+                }
             }
         }
-        await apiCalls.addTask(contextType.getUser(), body).then(props.handleClose)
+        await apiCalls.editTask(contextType.getUser(), body).then(props.handleClose)
             .finally(contextTypeTasks.setTasks(contextType.getUser().data.name));
+
     }
 
     let disableSubmit = false;
-    if (taskName === '' || category === undefined) {
+    if (taskName === '' || category === '') {
         disableSubmit = true;
     }
 
@@ -68,7 +78,7 @@ const CreateTaskPopup = props => {
                         value={taskName} onChange={onChangeName} />
                 </div>
                 <div className="popup-line-2">
-                    <CategorySelector onChange={onChangeCategory} selectorOrigin={props.selectorOrigin} />
+                    <CategorySelector onChange={onChangeCategory} currentValue={category} selectorOrigin={props.selectorOrigin} />
                 </div>
                 <div className="popup-line-3">
                     <InputLabelTop label="Deadline date"
@@ -80,9 +90,9 @@ const CreateTaskPopup = props => {
                 </div>
                 <div className="popup-line-4">Mandatory field<span className="red-color">*</span></div>
                 <div className="popup-line-5">
-                    <ButtonWithProgress onClick={onClickCreateTask}
+                    <ButtonWithProgress onClick={onClickEditTask}
                         disabled={disableSubmit}
-                        text="Create Task"
+                        text="Edit Task"
                         classes="create-task-button" />
                 </div>
             </div>
@@ -90,4 +100,4 @@ const CreateTaskPopup = props => {
     );
 };
 
-export default CreateTaskPopup;
+export default EditTaskPopupWithoutDeadline;

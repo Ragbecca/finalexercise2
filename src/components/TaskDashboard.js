@@ -8,8 +8,8 @@ const TaskDashboard = (props) => {
         <div id="dashboard-flex">
             <ActiveTasks />
             <div className="dashboard-2-big-segments">
-                <ProgressTasks globalTasks={props.globalTasks} />
-                <FinishedTasks globalTasks={props.globalTasks} refreshGlobalTasks={props.refreshGlobalTasks} />
+                <ProgressTasks />
+                <FinishedTasks />
             </div>
         </div>
     </div>

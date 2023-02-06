@@ -3,6 +3,7 @@ import WebsiteSingle from './WebsiteSingle';
 import React, { useState, useEffect } from 'react';
 import SelectorContext from '../../misc/SelectorContext';
 import WebsiteContext from '../../misc/WebsiteContext';
+import { websitesLocation } from '../../misc/ConstantValues';
 
 const FavoriteWebsites = (props) => {
     const contextTypeWebsite = React.useContext(WebsiteContext);
@@ -20,7 +21,7 @@ const FavoriteWebsites = (props) => {
     }, [contextTypeWebsite.refreshCall]);
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "websites" || contextTypeWebsite.initialCall === false) {
+        if (contextTypeSelector.selectorState !== websitesLocation || contextTypeWebsite.initialCall === false) {
             return;
         }
         setChangeWebsites(true);
@@ -38,11 +39,11 @@ const FavoriteWebsites = (props) => {
     return <div id="websites-list-shower">
         <div><h2 id="websites-list-header-name">My favorite Websites</h2></div>
         <div id="websites-list-scrollbar">
-            {websites.length > 0 && websites.map(website => <WebsiteSingle key={website.websiteID} id={website.websiteID} name={website.name} description={website.description} img={website.icon} link={website.url} refreshGlobalWebsites={props.refreshGlobalWebsites} />)}
+            {websites.length > 0 && websites.map(website => <WebsiteSingle key={website.websiteID} id={website.websiteID} name={website.name} description={website.description} img={website.icon} link={website.url} />)}
             {websites.length === 0 && <div>This uses doesn't have any favorite websites yet</div>}
         </div>
         <div className="add-task"><span className="icon" onClick={togglePopUp}>+<span className="icon-tooltip">Add a Task</span></span></div>
-        {isOpen && <CreateWebsitePopup handleClose={togglePopUp} refreshGlobalWebsites={props.refreshGlobalWebsites} />}
+        {isOpen && <CreateWebsitePopup handleClose={togglePopUp} />}
     </div>
 }
 

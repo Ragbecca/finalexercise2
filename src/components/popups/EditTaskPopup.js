@@ -78,7 +78,7 @@ const EditTaskPopup = props => {
                         value={taskName} onChange={onChangeName} />
                 </div>
                 <div className="popup-line-2">
-                    <CategorySelector onChange={onChangeCategory} currentValue={category} />
+                    <CategorySelector onChange={onChangeCategory} currentValue={category} selectorOrigin={props.selectorOrigin} />
                 </div>
                 <div className="popup-line-3">
                     <InputLabelTop label="Deadline date"

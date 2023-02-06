@@ -111,6 +111,15 @@ export function addQuote(user, quote) {
     })
 }
 
+export function deleteQuote(user, quoteId) {
+    return instance.post(`/api/quote/delete`, quoteId, {
+        headers: {
+            'Authorization': bearerAuth(user),
+            'Content-type': 'application/json;charset=UTF-8'
+        }
+    })
+}
+
 export function numberOfUsers() {
     return instance.get('/public/numberOfUsers')
 }

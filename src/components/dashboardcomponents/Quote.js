@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SelectorContext from "../../misc/SelectorContext";
 import QuoteContext from "../../misc/QuoteContext";
+import { quotesLocation } from "../../misc/ConstantValues";
 
 const Quote = props => {
     const contextTypeQuote = React.useContext(QuoteContext);
@@ -29,7 +30,7 @@ const Quote = props => {
     }
 
     function changeSelectorStateToQuotes() {
-        contextTypeSelector.setSelectorState("quotes")
+        contextTypeSelector.setSelectorState(quotesLocation)
     }
 
     return <div id="dashboard-quote">

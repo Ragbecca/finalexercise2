@@ -7,7 +7,7 @@ const Quotes = (props) => {
         <div id="dashboard-flex">
             <QuoteList />
             <div className="dashboard-2-big-segments">
-                <QuoteComponent dayQuote={props.dayQuote} />
+                <QuoteComponent />
             </div>
         </div>
     </div>

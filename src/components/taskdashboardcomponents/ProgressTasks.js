@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { tasksLocation } from "../../misc/ConstantValues";
 import SelectorContext from "../../misc/SelectorContext";
 import TaskContext from "../../misc/TaskContext";
 
@@ -22,7 +23,7 @@ const ProgressTasks = () => {
     }, [contextTypeTasks.refreshCall]);
 
     useEffect(() => {
-        if (contextTypeSelector.selectorState !== "tasks" || contextTypeTasks.initialCall === false) {
+        if (contextTypeSelector.selectorState !== tasksLocation || contextTypeTasks.initialCall === false) {
             return;
         }
         setChangeTasks(true);
